@@ -1,37 +1,24 @@
-package com.example.airline_reservation.Model;
+package com.example.airline_reservation.Service.DTOs;
 
+import com.example.airline_reservation.Model.Airline;
+import com.example.airline_reservation.Model.Airport;
 import lombok.Data;
-
-import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@Entity
-public class Flight {
-
-    @Id
-    @GeneratedValue
-    private int id;
+public class FlightDTO {
     private int number;
     private int capacity;
-
-    @ManyToOne @JoinColumn
     private Airline airline;
-
-    @ManyToOne @JoinColumn
     private Airport departureAirport;
-
-    @ManyToOne @JoinColumn
     private Airport arrivalAirport;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
 
-
-    public Flight() {
+    public FlightDTO() {
     }
 
-    public Flight(int number, int capacity, Airline airline, Airport departureAirport, Airport arrivalAirport, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+    public FlightDTO(int number, int capacity, Airline airline, Airport departureAirport, Airport arrivalAirport, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         this.number = number;
         this.capacity = capacity;
         this.airline = airline;
@@ -40,4 +27,6 @@ public class Flight {
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
     }
+
 }
+
