@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -18,7 +19,25 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Autowired
     AirlineRepo airlineRepo;
+    AirlineServiceImpl(AirlineRepo airlineRepo){
+        this.airlineRepo=airlineRepo;
+    }
 
+    @Override
+    public Airline findById(Integer id) {
+        boolean found = airlineRepo.existsById(id);
+        if (!found){
+            throw new IllegalStateException("Airline with this id Not Found");
+        }
+        return airlineRepo.findById(id).get();
+    }
+    @Override
+    public Airline findByCode(String code){
+
+        return airlineRepo.findByCode(code).get();
+    }
+
+    @Override
     public List<AirlineDTO> findAll() {
         List<AirlineDTO> airlineDTOList = new ArrayList<>();
 
@@ -28,11 +47,40 @@ public class AirlineServiceImpl implements AirlineService {
 
         return airlineDTOList;
     }
-
+    @Override
     public AirlineDTO save(AirlineDTO airlineDTO) {
         Airline airline = AirlineDTOAdapter.getAirline(airlineDTO);
+        Optional<Airline> airlineOptional = airlineRepo.findByCode(airlineDTO.getCode());
+
+        if(airlineOptional.isPresent()) {
+            throw new IllegalStateException("code "+airlineOptional+"is already taken please provide another one");
+        }
+
         airlineRepo.save(airline);
 
         return airlineDTO;
+    }
+    @Override
+    public AirlineDTO Update(int id, AirlineDTO airlinDTO){
+        boolean found = airlineRepo.existsById(id);
+        if (!found){
+            throw new IllegalStateException("Airline with this id Not Found");
+        }
+        Airline airport1 = AirlineDTOAdapter.getAirline(airlinDTO);
+        Airline airport = airlineRepo.findById(id).get();
+        airport.setCode(airport1.getCode());
+        airport.setName(airport1.getName());
+
+        airlineRepo.save(airport);
+        return airlinDTO;
+    }
+    @Override
+    public void delete(int id){
+        boolean exists=airlineRepo.existsById(id);
+        if(!exists){
+            throw new IllegalStateException("Airline"+id+" doest not exists");
+        }
+        airlineRepo.deleteById(id);
+        System.out.println("deleted");
     }
 }
