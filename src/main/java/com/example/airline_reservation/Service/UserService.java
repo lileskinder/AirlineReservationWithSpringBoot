@@ -1,4 +1,4 @@
 package com.example.airline_reservation.Service;
 
-public interface PersonService {
+public interface UserService {
 }

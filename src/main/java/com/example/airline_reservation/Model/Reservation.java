@@ -9,7 +9,7 @@ import java.util.List;
 public class Reservation {
     private int id;
     private String code;
-    private Person passenger;
+    private User passenger;
     private List<Ticket> tickets = new ArrayList<>();
     private String status;
 
