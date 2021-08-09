@@ -1,15 +1,11 @@
 package com.example.airline_reservation.Web;
 
-import com.example.airline_reservation.Model.Airline;
 import com.example.airline_reservation.Service.Implementation.AirlineServiceImpl;
-import com.example.airline_reservation.Web.DTOs.AirlineDTO;
+import com.example.airline_reservation.Service.DTOs.AirlineDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

@@ -1,12 +1,14 @@
 server:
   port: 8015
+  error:
+    include-message=always: always
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/airliner
+    url: jdbc:mysql://localhost/airliner?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
-    password: Tayyab##123
+    password: admin
   jpa:
     show-sql: true
     hibernate:
