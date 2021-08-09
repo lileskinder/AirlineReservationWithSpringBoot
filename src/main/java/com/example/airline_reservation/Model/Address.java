@@ -1,15 +1,19 @@
 package com.example.airline_reservation.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import lombok.Data;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
 @Data
+@Entity
 public class Address {
-    private String street;
-    private String city;
-    private String state;
-    private String zip;
+	@Id
+	@GeneratedValue
+	private int Id;
+	private String street;
+	private String city;
+	private String state;
+	private String zip;
 }

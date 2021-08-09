@@ -1,9 +1,10 @@
-package com.example.airline_reservation.Model;
+package com.example.airline_reservation.Web.DTOs;
+
+import java.time.LocalDate;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -14,18 +15,12 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Data
-@Entity
-@Table(name = "User")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-public class Person {
-	@Id
-	@GeneratedValue
+public class PersonDTO {
 	private int id;
-
 	private String firstName;
 	private String lastName;
-	@OneToOne(fetch = FetchType.LAZY)
-	private Address address;
+	private int addressId;
 	private String email;
+	private LocalDate dob;
+	private int agentId;
 }
