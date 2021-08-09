@@ -1,48 +1,21 @@
 package com.example.airline_reservation.Service.DTOs;
 
-import java.time.LocalDate;
-
-import javax.persistence.*;
-
 import com.example.airline_reservation.Model.Address;
 import lombok.Data;
+
+import javax.persistence.Embedded;
 
 @Data
 public class PersonDTO {
 	private int id;
-
 	private String firstName;
 	private String lastName;
-
 	private String email;
-	private LocalDate dob;
-	private int agentId;
 
-	// Address
 	@Embedded
 	private Address address;
 
 	public PersonDTO() {
-	}
-
-	public PersonDTO(String firstName, String lastName, String email, LocalDate dob, int agentId, Address address) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.dob = dob;
-		this.agentId = agentId;
-		this.address = address;
-	}
-
-	public PersonDTO(int id, String firstName, String lastName, String email, LocalDate dob, int agentId,
-			Address address) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.dob = dob;
-		this.agentId = agentId;
-		this.address = address;
 	}
 
 	public int getId() {
@@ -77,22 +50,6 @@ public class PersonDTO {
 		this.email = email;
 	}
 
-	public LocalDate getDob() {
-		return dob;
-	}
-
-	public void setDob(LocalDate dob) {
-		this.dob = dob;
-	}
-
-	public int getAgentId() {
-		return agentId;
-	}
-
-	public void setAgentId(int agentId) {
-		this.agentId = agentId;
-	}
-
 	public Address getAddress() {
 		return address;
 	}
@@ -100,4 +57,12 @@ public class PersonDTO {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+
+	public PersonDTO(String firstName, String lastName, String email, Address address) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.address = address;
+	}
+
 }
