@@ -6,23 +6,31 @@ import lombok.Data;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-
 @Data
 @Entity
-@DiscriminatorValue("agent")
+@DiscriminatorValue("Agent")
 public class Agent extends Person {
-    private int agentId;
+	private int agentId;
 
-    public Agent() {}
+	public Agent() {
+	}
 
-    public Agent(String firstName, String lastName, Address address, String email, int agentId) {
-        super(firstName, lastName, address, email);
-        this.agentId = agentId;
-    }
+	public Agent(String firstName, String lastName, Address address, String email, int agentId) {
+		super(firstName, lastName, address, email);
+		this.agentId = agentId;
+	}
 
-    @JsonIgnore
-    @Override
-    public String getType() {
-        return "agent";
-    }
+	@JsonIgnore
+	@Override
+	public String getType() {
+		return "Agent";
+	}
+
+	public int getAgentId() {
+		return agentId;
+	}
+
+	public void setAgentId(int agentId) {
+		this.agentId = agentId;
+	}
 }

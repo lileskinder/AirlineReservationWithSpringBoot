@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.airline_reservation.Service.Implementation.PersonServiceImpl;
-import com.example.airline_reservation.Web.DTOs.PersonDTO;
+import com.example.airline_reservation.Service.DTOs.PersonDTO;
 
 @RestController
 public class PersonController {
@@ -20,6 +20,7 @@ public class PersonController {
 	@Autowired
 	PersonServiceImpl personService;
 
+	// PASSENGER
 	@GetMapping("/passengers")
 	public ResponseEntity<List<PersonDTO>> getPassengers() {
 		List<PersonDTO> people = personService.getPassengers();
@@ -30,25 +31,71 @@ public class PersonController {
 	@PostMapping("/passengers")
 	public ResponseEntity<PersonDTO> addPassenger(@RequestBody PersonDTO personDTO) {
 		PersonDTO person = personService.addPassenger(personDTO);
-
 		return new ResponseEntity<PersonDTO>(person, HttpStatus.OK);
 	}
 
-	@PostMapping("/passengers/{id}/update")
+	@PostMapping("/passengers/update")
 	public ResponseEntity<PersonDTO> updatePassenger(@RequestBody PersonDTO personDTO) {
-		PersonDTO person = personService.addPassenger(personDTO);
+		PersonDTO person = personService.updatePassenger(personDTO);
 
 		return new ResponseEntity<PersonDTO>(person, HttpStatus.OK);
 	}
 
 	@GetMapping("/passengers/{id}")
-	public PersonDTO getPassengerById(@PathVariable int id) {
-		return personService.getPassengerById(id);
+	public ResponseEntity<PersonDTO> getPassengerById(@PathVariable(name = "id") int id) {
+		return new ResponseEntity<PersonDTO>(personService.getPassengerById(id), HttpStatus.OK);
+	}
+
+	@PostMapping("/passengers/delete")
+	public ResponseEntity<PersonDTO> deletePassenger(@RequestBody PersonDTO personDTO) {
+		personService.deletePassenger(personDTO.getId());
+
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	@PostMapping("/passengers/{id}/delete")
-	public ResponseEntity<PersonDTO> deletePassenger(@RequestBody int passengerId) {
-		personService.deletePassenger(passengerId);
+	public ResponseEntity<PersonDTO> deletePassengerById(@PathVariable(name = "id") int id) {
+		personService.deletePassenger(id);
+
+		return new ResponseEntity(HttpStatus.OK);
+	}
+
+	// AGENT
+	@GetMapping("/agents")
+	public ResponseEntity<List<PersonDTO>> getAgents() {
+		List<PersonDTO> people = personService.getAgents();
+
+		return new ResponseEntity<List<PersonDTO>>(people, HttpStatus.OK);
+	}
+
+	@PostMapping("/agents")
+	public ResponseEntity<PersonDTO> addAgent(@RequestBody PersonDTO personDTO) {
+		PersonDTO person = personService.addAgent(personDTO);
+		return new ResponseEntity<PersonDTO>(person, HttpStatus.OK);
+	}
+
+	@PostMapping("/agents/update")
+	public ResponseEntity<PersonDTO> updateAgent(@RequestBody PersonDTO personDTO) {
+		PersonDTO person = personService.updateAgent(personDTO);
+
+		return new ResponseEntity<PersonDTO>(person, HttpStatus.OK);
+	}
+
+	@GetMapping("/agents/{id}")
+	public ResponseEntity<PersonDTO> getAgentById(@PathVariable(name = "id") int id) {
+		return new ResponseEntity<PersonDTO>(personService.getAgentById(id), HttpStatus.OK);
+	}
+
+	@PostMapping("/agents/delete")
+	public ResponseEntity<PersonDTO> deleteAgent(@RequestBody PersonDTO personDTO) {
+		personService.deletePassenger(personDTO.getId());
+
+		return new ResponseEntity(HttpStatus.OK);
+	}
+
+	@PostMapping("/agents/{id}/delete")
+	public ResponseEntity<PersonDTO> deleteAgent(@PathVariable(name = "id") int id) {
+		personService.deletePassenger(id);
 
 		return new ResponseEntity(HttpStatus.OK);
 	}

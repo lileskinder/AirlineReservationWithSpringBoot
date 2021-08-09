@@ -30,12 +30,15 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public List<PersonDTO> getPassengers() {
-		List<Person> people = repo.findAll();
 
+		List<Person> people = repo.findAll();
 		List<PersonDTO> PersonDTOList = new ArrayList<>();
 
 		for (Person person : people) {
-			PersonDTOList.add(PersonDTOAdapter.getPassengerDTO(person));
+			if (person.getType().equals("Passenger")) {
+				Passenger passenger = (Passenger) person;
+				PersonDTOList.add(PersonDTOAdapter.getPassengerDTO(passenger));
+			}
 		}
 
 		return PersonDTOList;
@@ -56,12 +59,6 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public PersonDTO getPassengerById(int passengerId) {
-		Optional<Person> person = repo.findById(passengerId);
-		return PersonDTOAdapter.getPassengerDTO(person);
-	}
-
-	@Override
 	public PersonDTO addAgent(PersonDTO personDTO) {
 		Agent agent = PersonDTOAdapter.getAgent(personDTO);
 		return PersonDTOAdapter.getAgentDTO(repo.save(agent));
@@ -70,7 +67,6 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public PersonDTO updateAgent(PersonDTO personDTO) {
-		// TODO Auto-generated method stub
 		Agent agent = PersonDTOAdapter.getAgent(personDTO);
 		return PersonDTOAdapter.getAgentDTO(repo.save(agent));
 	}
@@ -86,11 +82,13 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public List<PersonDTO> getAgents() {
 		List<Person> people = repo.findAll();
-
 		List<PersonDTO> PersonDTOList = new ArrayList<>();
 
 		for (Person person : people) {
-			PersonDTOList.add(PersonDTOAdapter.getPersonDTO(person));
+			if (person.getType().equals("Agent")) {
+				Agent agent = (Agent) person;
+				PersonDTOList.add(PersonDTOAdapter.getAgentDTO(agent));
+			}
 		}
 
 		return PersonDTOList;
@@ -98,8 +96,25 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public PersonDTO getAgentById(int agentId) {
-		Optional<Person> person = repo.findById(agentId);
-		return PersonDTOAdapter.getPersonDTO(person);
+		Person person = repo.findById(agentId).orElse(null);
+		if (person.getType().equals("Agent")) {
+			Agent agent = (Agent) person;
+			return PersonDTOAdapter.getAgentDTO(agent);
+		} else {
+			throw new IllegalStateException("Agent with id " + agentId + " does not exists");
+		}
+
+	}
+
+	@Override
+	public PersonDTO getPassengerById(int passengerId) {
+		Person person = repo.findById(passengerId).orElse(null);
+		if (person.getType().equals("Passenger")) {
+			Passenger passenger = (Passenger) person;
+			return PersonDTOAdapter.getPassengerDTO(passenger);
+		} else {
+			throw new IllegalStateException("Passenger with id " + passengerId + " does not exists");
+		}
 	}
 
 }

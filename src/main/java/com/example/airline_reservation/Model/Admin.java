@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 
 @Data
 @Entity
-@DiscriminatorValue("admin")
+@DiscriminatorValue("Admin")
 public class Admin extends Person {
     public Admin() { }
 
@@ -19,6 +19,6 @@ public class Admin extends Person {
     @JsonIgnore
     @Override
     public String getType() {
-        return "admin";
+        return "Admin";
     }
 }
