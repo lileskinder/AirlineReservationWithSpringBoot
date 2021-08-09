@@ -4,29 +4,28 @@ import java.util.List;
 
 import com.example.airline_reservation.Model.Agent;
 import com.example.airline_reservation.Model.Person;
-import com.example.airline_reservation.Web.DTOs.PersonDTO;
+import com.example.airline_reservation.Service.DTOs.PersonDTO;
 import com.example.airline_reservation.Model.Passenger;
 
 public interface PersonService {
 
-
-	public void updatePassanger(int passangerId);
-
-	public void deletePassanger(int passangerId);
+	public void deletePassenger(int passengerId);
 
 	public List<PersonDTO> getPassengers();
 
-	public Person getPassangerById(String passangerId);
+	public PersonDTO getPassengerById(int passengerId);
 
-	public void addAgent(Person agent);
+	public PersonDTO addAgent(PersonDTO agent);
 
-	public void updateAgent(int agentId);
+	public PersonDTO updateAgent(PersonDTO personDTO);
 
 	public void deleteAgent(int agentId);
 
-	public List<Person> getAgents();
+	public List<PersonDTO> getAgents();
 
-	public Person getagentById(int agentId);
+	public PersonDTO getAgentById(int agentId);
 
-	void addPassanger(PersonDTO personDTO);
+	public PersonDTO addPassenger(PersonDTO personDTO);
+
+	public PersonDTO updatePassenger(PersonDTO personDTO);
 }

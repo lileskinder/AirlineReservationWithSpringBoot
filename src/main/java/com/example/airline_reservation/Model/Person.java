@@ -1,31 +1,44 @@
 package com.example.airline_reservation.Model;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "User")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-public class Person {
-	@Id
-	@GeneratedValue
-	private int id;
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes(
+        {
+                @JsonSubTypes.Type(value = Passenger.class, name = "passenger"),
+                @JsonSubTypes.Type(value = Agent.class, name = "agent"),
+                @JsonSubTypes.Type(value = Admin.class, name = "admin")
+        })
+public abstract class Person {
+    @Id
+    @GeneratedValue
+    protected int id;
 
-	private String firstName;
-	private String lastName;
-	@OneToOne(fetch = FetchType.LAZY)
-	private Address address;
-	private String email;
+    @Fetch(value = FetchMode.JOIN)
+    protected String firstName;
+    protected String lastName;
+    protected Address address;
+    protected String email;
+
+    public Person() {}
+
+    public Person(String firstName, String lastName, Address address, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.email = email;
+    }
+
+    public abstract String getType();
 }
