@@ -12,7 +12,6 @@ public class PersonDTO {
 	private String lastName;
 	private String email;
 
-	@Embedded
 	private Address address;
 
 	public PersonDTO() {
@@ -65,4 +64,7 @@ public class PersonDTO {
 		this.address = address;
 	}
 
+	public String toString() {
+		return firstName + " " + lastName + " : " + email + " : " + address;
+	}
 }

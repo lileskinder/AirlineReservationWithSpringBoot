@@ -27,4 +27,8 @@ public class PassengerDTO extends PersonDTO {
 	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
+
+	public String toString() {
+		return super.toString() + dob.toString();
+	}
 }

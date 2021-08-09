@@ -22,4 +22,8 @@ public class AgentDTO extends PersonDTO {
 	public void setAgentId(int agentId) {
 		this.agentId = agentId;
 	}
+
+	public String toString() {
+		return super.toString() + agentId;
+	}
 }

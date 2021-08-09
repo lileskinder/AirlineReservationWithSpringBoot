@@ -31,7 +31,7 @@ public class PassengerController {
 
 	@PostMapping
 	public ResponseEntity<PassengerDTO> addPassenger(@RequestBody PassengerDTO passengerDTO) {
-		System.out.println(passengerDTO.getAddress());
+		System.out.println(passengerDTO);
 		return new ResponseEntity<PassengerDTO>(service.addPassenger(passengerDTO), HttpStatus.OK);
 	}
 
