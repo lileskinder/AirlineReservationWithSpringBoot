@@ -1,4 +1,4 @@
-package com.example.airline_reservation.Web.DTOs;
+package com.example.airline_reservation.Service.DTOs;
 
 import lombok.Data;
 
