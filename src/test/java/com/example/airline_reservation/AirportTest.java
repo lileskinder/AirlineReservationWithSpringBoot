@@ -4,11 +4,11 @@ import com.example.airline_reservation.Model.Address;
 import com.example.airline_reservation.Model.Airport;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.aspectj.lang.annotation.Before;
+
 import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
+
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -48,6 +48,7 @@ class AirportTest {
                 .when()
                 .delete("airports/IWA");
     }
+
     @Test
     public void testDeleteAirports(){
            Airport airport=new Airport("CHI","CHICAGO",new Address("1000","fairField","iowa","52257"));
@@ -66,8 +67,9 @@ class AirportTest {
               .statusCode(404)
               .and()
               .body("errorMessage",equalTo("Contact with Code= CHI is not available"));
-       }
-       @Test
+   }
+
+   @Test
     public void testUpdateAirports(){
            Airport airport=new Airport("IWA","IOWA",new Address("1000","fairField","iowa","52257"));
            Airport airportUpdate=new Airport("IWA","FairField",new Address("1000","fairField","iowa","52257"));
@@ -93,8 +95,8 @@ class AirportTest {
                    .when()
                    .delete("airports/IWA");
 
+    }
 
-}
     @Test
     public void testGetAllContacts() {
         // add the contacts
