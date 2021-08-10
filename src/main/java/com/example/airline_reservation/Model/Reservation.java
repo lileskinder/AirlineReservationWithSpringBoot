@@ -16,7 +16,7 @@ public class Reservation {
     @OneToOne
     private Person customer;
 
-    @OneToMany(cascade = CascadeType.ALL) @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL) @JoinColumn(name="reservation_id")
     private List<Ticket> tickets = new ArrayList<>();
     private ReservationStatus status;
 

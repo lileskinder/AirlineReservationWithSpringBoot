@@ -16,7 +16,6 @@ public class TicketDTOAdapter {
         Ticket ticket = new Ticket();
 
         ticket.setNumber(ticketDTO.getNumber());
-        ticket.setReservationCode(ticketDTO.getReservationCode());
 
         Passenger passenger = PassengerDTOAdapter.getPassenger(
                 passengerService.getPassengerById(ticketDTO.getPassengerId()));
@@ -34,7 +33,6 @@ public class TicketDTOAdapter {
         TicketDTO ticketDTO = new TicketDTO();
 
         ticketDTO.setNumber(ticket.getNumber());
-        ticketDTO.setReservationCode(ticket.getReservationCode());
         ticketDTO.setPassengerId(ticket.getPassenger().getId());
         ticketDTO.setFlightId(ticket.getFlight().getId());
 

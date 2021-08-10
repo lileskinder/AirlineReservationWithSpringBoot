@@ -9,7 +9,6 @@ import lombok.ToString;
 @Data
 public class TicketDTO {
     private int number;
-    private String reservationCode;
 
     @EqualsAndHashCode.Exclude
     private int passengerId;
