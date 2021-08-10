@@ -29,11 +29,21 @@ public class AirportController {
 
     }
 
-    @GetMapping("/{airportId}")
-    public ResponseEntity<Airport> getAirportById(@PathVariable int airportId) {
-        System.out.println("get method");
-        Airport airport = airportService.getAirportById(airportId);
-        return new ResponseEntity<>(airport, HttpStatus.OK);
+
+    @GetMapping("/{airportCode}")
+    public ResponseEntity<Airport> getAirportByCode(@PathVariable("airportCode") String airportCode) {
+        Airport airport = airportService.getAirportByCode(airportCode);
+        try{
+            if(airport != null){
+                return new ResponseEntity<>(airport, HttpStatus.OK);
+            }
+            else{
+                return  new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
+            }
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
+        }
     }
 
     @PostMapping("")
