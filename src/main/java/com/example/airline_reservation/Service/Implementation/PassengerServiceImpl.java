@@ -28,13 +28,16 @@ public class PassengerServiceImpl implements PassengerService {
 
 	@Override
 	public PassengerDTO getPassengerById(int id) {
-		return PassengerDTOAdapter.getPassengerDTO(repo.getById(id));
+		Passenger passenger = repo.findById(id)
+				.orElseThrow(() -> new IllegalStateException("Passenger with id " + id + " does not exists"));
+		return PassengerDTOAdapter.getPassengerDTO(passenger);
 	}
 
 	@Override
 	public PassengerDTO updatePassenger(PassengerDTO PassengerDTO) {
 		Passenger passenger = PassengerDTOAdapter.getPassenger(PassengerDTO);
 		return PassengerDTOAdapter.getPassengerDTO(repo.save(passenger));
+
 	}
 
 	@Override

@@ -55,7 +55,8 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public AdminDTO getAdminById(int adminId) {
-		Admin admin = repo.findById(adminId).orElse(null);
+		Admin admin = repo.findById(adminId)
+				.orElseThrow(() -> new IllegalStateException("Admin with id " + adminId + " does not exists"));
 		return AdminDTOAdapter.getAdminDTO(admin);
 	}
 }

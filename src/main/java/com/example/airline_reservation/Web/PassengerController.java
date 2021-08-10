@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,29 +31,29 @@ public class PassengerController {
 		return new ResponseEntity<List<PassengerDTO>>(passengers, HttpStatus.OK);
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<PersonDTO> getPassengerById(@PathVariable(name = "id") int id) {
+		return new ResponseEntity<PersonDTO>(service.getPassengerById(id), HttpStatus.OK);
+	}
+
 	@PostMapping
 	public ResponseEntity<PassengerDTO> addPassenger(@RequestBody PassengerDTO passengerDTO) {
 		System.out.println(passengerDTO);
 		return new ResponseEntity<PassengerDTO>(service.addPassenger(passengerDTO), HttpStatus.OK);
 	}
 
-	@PostMapping("/update")
+	@PutMapping
 	public ResponseEntity<PassengerDTO> updatePassenger(@RequestBody PassengerDTO passengerDTO) {
 		return new ResponseEntity<PassengerDTO>(service.updatePassenger(passengerDTO), HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<PersonDTO> getPassengerById(@PathVariable(name = "id") int id) {
-		return new ResponseEntity<PersonDTO>(service.getPassengerById(id), HttpStatus.OK);
-	}
-
-	@PostMapping("/delete")
+	@DeleteMapping
 	public ResponseEntity<PersonDTO> deletePassenger(@RequestBody PersonDTO personDTO) {
 		service.deletePassenger(personDTO.getId());
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
-	@PostMapping("/{id}/delete")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<PersonDTO> deletePassengerById(@PathVariable(name = "id") int id) {
 		service.deletePassenger(id);
 		return new ResponseEntity(HttpStatus.OK);

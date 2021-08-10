@@ -7,23 +7,25 @@ public class AdminDTOAdapter {
 
 	public static AdminDTO getAdminDTO(Admin admin) {
 		AdminDTO adminDTO = new AdminDTO();
-		adminDTO.setId(admin.getId());
-		adminDTO.setFirstName(admin.getFirstName());
-		adminDTO.setLastName(admin.getLastName());
-		adminDTO.setEmail(admin.getEmail());
-		adminDTO.setAddress(admin.getAddress());
-
+		if (admin != null) {
+			adminDTO.setId(admin.getId());
+			adminDTO.setFirstName(admin.getFirstName());
+			adminDTO.setLastName(admin.getLastName());
+			adminDTO.setEmail(admin.getEmail());
+			adminDTO.setAddress(admin.getAddress());
+		}
 		return adminDTO;
 	}
 
 	public static Admin getAdmin(AdminDTO adminDTO) {
 		Admin admin = new Admin();
-		admin.setId(adminDTO.getId());
-		admin.setFirstName(adminDTO.getFirstName());
-		admin.setLastName(adminDTO.getLastName());
-		admin.setEmail(adminDTO.getEmail());
-		admin.setAddress(adminDTO.getAddress());
-
+		if (admin != null) {
+			admin.setId(adminDTO.getId());
+			admin.setFirstName(adminDTO.getFirstName());
+			admin.setLastName(adminDTO.getLastName());
+			admin.setEmail(adminDTO.getEmail());
+			admin.setAddress(adminDTO.getAddress());
+		}
 		return admin;
 	}
 }
