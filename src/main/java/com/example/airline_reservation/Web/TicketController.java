@@ -25,10 +25,10 @@ public class TicketController {
 //        return new ResponseEntity<List<TicketDTO>>(tickets, HttpStatus.OK);
 //    }
 //
-//    @GetMapping("/tickets/{id}")
-//    public ResponseEntity<TicketDTO> getTicket(@PathVariable int id) {
-//        return new ResponseEntity<TicketDTO>(ticketService.getTicket(id), HttpStatus.OK);
-//    }
+    @GetMapping("/tickets/{id}")
+    public ResponseEntity<TicketDTO> getTicket(@PathVariable int id) {
+        return new ResponseEntity<TicketDTO>(ticketService.getTicket(id), HttpStatus.OK);
+    }
 //
     @PostMapping("/tickets")
     public ResponseEntity<TicketDTO> createTicket(@RequestBody TicketDTO ticketDTO) {

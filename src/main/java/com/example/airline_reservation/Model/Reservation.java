@@ -14,10 +14,10 @@ public class Reservation {
     private String code;
 
     @OneToOne
-    private Person passenger;
+    private Person customer;
 
-    @OneToMany @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL) @JoinColumn
     private List<Ticket> tickets = new ArrayList<>();
-    private String status;
+    private ReservationStatus status;
 
 }

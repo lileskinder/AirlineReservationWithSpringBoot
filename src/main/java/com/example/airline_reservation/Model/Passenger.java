@@ -25,4 +25,17 @@ public class Passenger extends Person {
 //    public String getType() {
 //        return "Passenger";
 //    }
+
+
+    @Override
+    public String toString() {
+        return "Passenger{" +
+                "dob=" + dob +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address=" + address +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

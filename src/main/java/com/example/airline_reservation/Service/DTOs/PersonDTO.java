@@ -1,18 +1,21 @@
 package com.example.airline_reservation.Service.DTOs;
 
 import com.example.airline_reservation.Model.Address;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 import javax.persistence.Embedded;
 
 @Data
 public class PersonDTO {
-    private String firstName;
-    private String lastName;
-    private String email;
+//    @Setter(AccessLevel.NONE)
+    protected int id;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
 
-    @Embedded
-    private Address address;
+    protected Address address;
 
     public PersonDTO() {}
 
@@ -22,8 +25,5 @@ public class PersonDTO {
         this.email = email;
         this.address = address;
     }
-
-
-
 
 }

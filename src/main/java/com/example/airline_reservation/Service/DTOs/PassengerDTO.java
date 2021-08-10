@@ -19,4 +19,16 @@ public class PassengerDTO extends PersonDTO {
 		super(firstName, lastName, email, address);
 		this.dob = dob;
 	}
+
+	@Override
+	public String toString() {
+		return "PassengerDTO{" +
+				"dob=" + dob +
+				", id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", address=" + address +
+				'}';
+	}
 }

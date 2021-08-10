@@ -12,6 +12,7 @@ public class PassengerDTOAdapter {
 	public static Passenger getPassenger(PassengerDTO passengerDTO) {
 		Passenger passenger = new Passenger();
 
+		passenger.setId(passengerDTO.getId());
 		passenger.setFirstName(passengerDTO.getFirstName());
 		passenger.setLastName(passengerDTO.getLastName());
 		passenger.setEmail(passengerDTO.getEmail());
@@ -21,13 +22,10 @@ public class PassengerDTOAdapter {
 		return passenger;
 	}
 
-
-
-
-
 	public static PassengerDTO getPassengerDTO(Passenger passenger) {
 		PassengerDTO passengerDTO = new PassengerDTO();
 
+		passengerDTO.setId(passenger.getId());
 		passengerDTO.setFirstName(passenger.getFirstName());
 		passengerDTO.setLastName(passenger.getLastName());
 		passengerDTO.setEmail(passenger.getEmail());

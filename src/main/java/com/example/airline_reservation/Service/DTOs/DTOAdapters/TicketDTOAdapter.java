@@ -20,15 +20,9 @@ public class TicketDTOAdapter {
 
         ticket.setNumber(ticketDTO.getNumber());
         ticket.setReservationCode(ticketDTO.getReservationCode());
-        System.out.println(ticketDTO.getPassengerId());
 
-////        System.out.println(personRepo.getById(new Integer(ticketDTO.getPassengerId())));
-//
-        PassengerDTO passengerDTO = passengerService.getPassengerById(ticketDTO.getPassengerId());
-        System.out.println(passengerDTO);
-        Passenger passenger = PassengerDTOAdapter.getPassenger(passengerDTO);
-//        System.out.println(passenger.getType());
-//        System.out.println(PersonDTOAdapter.g);
+        Passenger passenger = PassengerDTOAdapter.getPassenger(
+                passengerService.getPassengerById(ticketDTO.getPassengerId()));
         ticket.setPassenger(passenger);
 
         Flight flight = (Flight) flightRepo.getById(ticketDTO.getFlightId());
@@ -40,13 +34,13 @@ public class TicketDTOAdapter {
 
     public static TicketDTO getTicketDTO(Ticket ticket) {
 
-        TicketDTO ticketDTO = new TicketDTO();return ticketDTO;
+        TicketDTO ticketDTO = new TicketDTO();
 
-//        ticketDTO.setNumber(ticket.getNumber());
-//        ticketDTO.setReservationCode(ticket.getReservationCode());
-//        ticketDTO.setPassengerId(ticket.getPassenger().getId());
-//        ticketDTO.setFlightId(ticket.getFlight().getId());
-//
-//        return ticketDTO;
+        ticketDTO.setNumber(ticket.getNumber());
+        ticketDTO.setReservationCode(ticket.getReservationCode());
+        ticketDTO.setPassengerId(ticket.getPassenger().getId());
+        ticketDTO.setFlightId(ticket.getFlight().getId());
+
+        return ticketDTO;
     }
 }

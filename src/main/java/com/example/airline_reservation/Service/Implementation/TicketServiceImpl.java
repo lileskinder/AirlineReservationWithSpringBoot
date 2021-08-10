@@ -31,8 +31,6 @@ public class TicketServiceImpl implements TicketService {
         Ticket ticket = TicketDTOAdapter.getTicket(ticketDTO, passengerService, flightRepo);
 
         return TicketDTOAdapter.getTicketDTO(ticketRepo.save(ticket));
-
-//        return ticketDTO;
     }
 
     public List<TicketDTO> findAllTickets() {
@@ -46,6 +44,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     public TicketDTO getTicket(int id) {
+
         return TicketDTOAdapter.getTicketDTO(ticketRepo.getById(id));
     }
 }
