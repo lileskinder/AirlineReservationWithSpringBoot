@@ -5,13 +5,13 @@ import com.example.airline_reservation.Model.Flight;
 import com.example.airline_reservation.Model.Passenger;
 import com.example.airline_reservation.Model.Ticket;
 import com.example.airline_reservation.Service.DTOs.TicketDTO;
-import com.example.airline_reservation.Service.Implementation.PassengerServiceImpl;
+import com.example.airline_reservation.Service.PassengerService;
 
 public class TicketDTOAdapter {
 
 
     public static Ticket getTicket(TicketDTO ticketDTO,
-                                   PassengerServiceImpl passengerService, FlightRepo flightRepo) {
+                                   PassengerService passengerService, FlightRepo flightRepo) {
         TicketDTOAdapter ticketDTOAdapter = new TicketDTOAdapter();
         Ticket ticket = new Ticket();
 

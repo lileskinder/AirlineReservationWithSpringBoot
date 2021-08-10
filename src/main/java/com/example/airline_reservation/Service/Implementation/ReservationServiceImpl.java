@@ -3,7 +3,6 @@ package com.example.airline_reservation.Service.Implementation;
 import com.example.airline_reservation.DAO.FlightRepo;
 import com.example.airline_reservation.DAO.PersonRepo;
 import com.example.airline_reservation.DAO.ReservationRepo;
-import com.example.airline_reservation.Model.Person;
 import com.example.airline_reservation.Model.Reservation;
 import com.example.airline_reservation.Model.ReservationStatus;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.ReservationDTOAdapter;
@@ -22,13 +21,13 @@ public class ReservationServiceImpl implements ReservationService {
 
     private ReservationRepo reservationRepo;
     private PersonRepo personRepo;
-    private PassengerServiceImpl passengerService;
+    private PassengerService passengerService;
     private FlightRepo flightRepo;
 
     @Autowired
     public ReservationServiceImpl(ReservationRepo reservationRepo,
                                   PersonRepo personRepo,
-                                  PassengerServiceImpl passengerService,
+                                  PassengerService passengerService,
                                   FlightRepo flightRepo) {
 
         this.reservationRepo = reservationRepo;
