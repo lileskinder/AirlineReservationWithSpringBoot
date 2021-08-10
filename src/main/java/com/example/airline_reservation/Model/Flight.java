@@ -52,4 +52,6 @@ public class Flight {
         this.arrivalTime = arrivalTime;
         this.flightStatus = flightStatus;
     }
+
+
 }

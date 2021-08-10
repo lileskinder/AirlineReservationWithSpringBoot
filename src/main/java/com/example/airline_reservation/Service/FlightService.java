@@ -5,9 +5,10 @@ import com.example.airline_reservation.Service.DTOs.FlightDTO;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface FlightService {
-    List<FlightDTO> findAll();
+    List<FlightDTO> findAll(Optional<Integer> page);
 
     FlightDTO addFlight(FlightDTO flightDTO);
 

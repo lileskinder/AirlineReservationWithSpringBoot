@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/flights")
@@ -39,10 +40,11 @@ public class FlightController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<FlightDTO>> getFlights() {
+    public ResponseEntity<List<FlightDTO>> getFlights(@RequestParam Optional<Integer> page) {
+        List<FlightDTO> flightDTOList = flightService.findAll(page);
         try {
-            if (flightService.findAll() != null) {
-                return new ResponseEntity<>(flightService.findAll(), HttpStatus.OK);
+            if (flightDTOList != null) {
+                return new ResponseEntity<>(flightDTOList, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
             }
