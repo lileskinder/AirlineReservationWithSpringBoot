@@ -10,7 +10,7 @@ public class AirlineReservationApplication {
 
         SpringApplication.run(AirlineReservationApplication.class, args);
 
-        System.out.println("sfdsf");
+//        System.out.println("sfdsf");
     }
 
 }

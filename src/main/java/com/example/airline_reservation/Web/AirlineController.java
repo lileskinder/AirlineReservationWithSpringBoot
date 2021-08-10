@@ -1,5 +1,6 @@
 package com.example.airline_reservation.Web;
 
+import com.example.airline_reservation.Service.AirlineService;
 import com.example.airline_reservation.Service.Implementation.AirlineServiceImpl;
 import com.example.airline_reservation.Service.DTOs.AirlineDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +17,23 @@ import java.util.List;
 
 public class AirlineController {
 
+    private final AirlineService airlineService;
+
     @Autowired
-    AirlineServiceImpl airlineService;
+    public AirlineController(AirlineService airlineService) {
+        this.airlineService = airlineService;
+    }
 
     @GetMapping("/airlines")
     public ResponseEntity<List<AirlineDTO>> getAirlines() {
         List<AirlineDTO> airlines = airlineService.findAll();
-
-        return new ResponseEntity<List<AirlineDTO>>(airlines, HttpStatus.OK);
+        return new ResponseEntity<>(airlines, HttpStatus.OK);
     }
 
     @PostMapping("/airlines")
     public ResponseEntity<AirlineDTO> addAirline(@RequestBody AirlineDTO airlineDTO) {
         AirlineDTO aline = airlineService.save(airlineDTO);
-
-        return new ResponseEntity<AirlineDTO>(aline, HttpStatus.OK);
+        return new ResponseEntity<>(aline, HttpStatus.OK);
     }
 
 }
