@@ -12,4 +12,11 @@ public class Address {
     private String city;
     private String state;
     private String zip;
+
+    public Address(String sd, String dd, String aa, String dd1) {
+    }
+
+    public Address() {
+
+    }
 }

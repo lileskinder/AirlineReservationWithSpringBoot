@@ -52,7 +52,8 @@ public class FlightServiceImpl implements FlightService {
             throw new IllegalStateException("Flight Number already Existed!!!");
         }
 
-        if (flight.getFlightStatus().equalsIgnoreCase(String.valueOf(FlightStatus.AVAILABLE)) ||
+        if (
+                flight.getFlightStatus().equalsIgnoreCase(String.valueOf(FlightStatus.AVAILABLE)) ||
                 flight.getFlightStatus().equalsIgnoreCase(String.valueOf(FlightStatus.DELAYED)) ||
                 flight.getFlightStatus().equalsIgnoreCase(String.valueOf(FlightStatus.CANCELLED))
         ) {
