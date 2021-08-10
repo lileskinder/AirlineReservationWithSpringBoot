@@ -16,23 +16,23 @@ import java.util.List;
 @Transactional
 public class AirlineServiceImpl implements AirlineService {
 
-    @Autowired
-    AirlineRepo airlineRepo;
+	@Autowired
+	AirlineRepo airlineRepo;
 
-    public List<AirlineDTO> findAll() {
-        List<AirlineDTO> airlineDTOList = new ArrayList<>();
+	public List<AirlineDTO> findAll() {
+		List<AirlineDTO> airlineDTOList = new ArrayList<>();
 
-        for (Airline airline: airlineRepo.findAll()) {
-            airlineDTOList.add(AirlineDTOAdapter.getAirlineDTO(airline));
-        }
+		for (Airline airline : airlineRepo.findAll()) {
+			airlineDTOList.add(AirlineDTOAdapter.getAirlineDTO(airline));
+		}
 
-        return airlineDTOList;
-    }
+		return airlineDTOList;
+	}
 
-    public AirlineDTO save(AirlineDTO airlineDTO) {
-        Airline airline = AirlineDTOAdapter.getAirline(airlineDTO);
-        airlineRepo.save(airline);
+	public AirlineDTO save(AirlineDTO airlineDTO) {
+		Airline airline = AirlineDTOAdapter.getAirline(airlineDTO);
+		airlineRepo.save(airline);
 
-        return airlineDTO;
-    }
+		return airlineDTO;
+	}
 }

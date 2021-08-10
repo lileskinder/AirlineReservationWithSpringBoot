@@ -14,4 +14,16 @@ public class AgentDTO extends PersonDTO {
         super(firstName, lastName, email, address);
         this.agentId = agentId;
     }
+
+	@Override
+	public String toString() {
+		return "AgentDTO{" +
+				"agentId=" + agentId +
+				", id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", address=" + address +
+				'}';
+	}
 }

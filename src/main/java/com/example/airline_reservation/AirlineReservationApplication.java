@@ -7,11 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AirlineReservationApplication {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        SpringApplication.run(AirlineReservationApplication.class, args);
-
-        Reservation reservation = new Reservation();
-    }
-
+		SpringApplication.run(AirlineReservationApplication.class, args);
+	}
 }

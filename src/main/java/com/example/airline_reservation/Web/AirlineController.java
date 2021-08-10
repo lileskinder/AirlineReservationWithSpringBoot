@@ -16,21 +16,21 @@ import java.util.List;
 
 public class AirlineController {
 
-    @Autowired
-    AirlineServiceImpl airlineService;
+	@Autowired
+	AirlineServiceImpl airlineService;
 
-    @GetMapping("/airlines")
-    public ResponseEntity<List<AirlineDTO>> getAirlines() {
-        List<AirlineDTO> airlines = airlineService.findAll();
+	@GetMapping("/airlines")
+	public ResponseEntity<List<AirlineDTO>> getAirlines() {
+		List<AirlineDTO> airlines = airlineService.findAll();
 
-        return new ResponseEntity<List<AirlineDTO>>(airlines, HttpStatus.OK);
-    }
+		return new ResponseEntity<List<AirlineDTO>>(airlines, HttpStatus.OK);
+	}
 
-    @PostMapping("/airlines")
-    public ResponseEntity<AirlineDTO> addAirline(@RequestBody AirlineDTO airlineDTO) {
-        AirlineDTO aline = airlineService.save(airlineDTO);
+	@PostMapping("/airlines")
+	public ResponseEntity<AirlineDTO> addAirline(@RequestBody AirlineDTO airlineDTO) {
+		AirlineDTO aline = airlineService.save(airlineDTO);
 
-        return new ResponseEntity<AirlineDTO>(aline, HttpStatus.OK);
-    }
+		return new ResponseEntity<AirlineDTO>(aline, HttpStatus.OK);
+	}
 
 }

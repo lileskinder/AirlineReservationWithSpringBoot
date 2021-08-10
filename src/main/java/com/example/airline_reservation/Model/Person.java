@@ -8,17 +8,11 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-//@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-//@JsonSubTypes(
-//        {
-//                @JsonSubTypes.Type(value = Passenger.class, name = "passenger"),
-//                @JsonSubTypes.Type(value = Agent.class, name = "agent"),
-//                @JsonSubTypes.Type(value = Admin.class, name = "admin")
-//        })
 public abstract class Person {
     @Id
     @GeneratedValue
@@ -38,9 +32,6 @@ public abstract class Person {
         this.email = email;
     }
 
-//    public abstract String getType();
-
-
     @Override
     public String toString() {
         return "Person{" +
@@ -50,5 +41,18 @@ public abstract class Person {
                 ", address=" + address +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return id == person.id && firstName.equals(person.firstName) && lastName.equals(person.lastName) && address.equals(person.address) && email.equals(person.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, address, email);
     }
 }
