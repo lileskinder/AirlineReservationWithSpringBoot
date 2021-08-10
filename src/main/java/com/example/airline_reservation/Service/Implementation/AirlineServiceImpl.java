@@ -6,6 +6,8 @@ import com.example.airline_reservation.Service.AirlineService;
 import com.example.airline_reservation.Web.DTOs.AirlineDTO;
 import com.example.airline_reservation.Web.DTOs.DTOAdapters.AirlineDTOAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,10 +40,11 @@ public class AirlineServiceImpl implements AirlineService {
     }
 
     @Override
-    public List<AirlineDTO> findAll() {
+    public List<AirlineDTO> findAll(Optional<Integer> page) {
+        Pageable pagination = PageRequest.of(page.orElse(0), 10);
         List<AirlineDTO> airlineDTOList = new ArrayList<>();
 
-        for (Airline airline: airlineRepo.findAll()) {
+        for (Airline airline: airlineRepo.findAll(pagination)) {
             airlineDTOList.add(AirlineDTOAdapter.getAirlineDTO(airline));
         }
 
