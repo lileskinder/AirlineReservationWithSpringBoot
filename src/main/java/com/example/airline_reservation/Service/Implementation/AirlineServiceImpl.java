@@ -3,8 +3,9 @@ package com.example.airline_reservation.Service.Implementation;
 import com.example.airline_reservation.DAO.AirlineRepo;
 import com.example.airline_reservation.Model.Airline;
 import com.example.airline_reservation.Service.AirlineService;
-import com.example.airline_reservation.Web.DTOs.AirlineDTO;
-import com.example.airline_reservation.Web.DTOs.DTOAdapters.AirlineDTOAdapter;
+import com.example.airline_reservation.Service.DTOs.AirlineDTO;
+
+import com.example.airline_reservation.Service.DTOs.DTOAdapters.AirlineDTOAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +20,9 @@ import java.util.Optional;
 @Transactional
 public class AirlineServiceImpl implements AirlineService {
 
+    private final AirlineRepo airlineRepo;
+
     @Autowired
-    AirlineRepo airlineRepo;
     AirlineServiceImpl(AirlineRepo airlineRepo){
         this.airlineRepo=airlineRepo;
     }
@@ -50,6 +52,7 @@ public class AirlineServiceImpl implements AirlineService {
 
         return airlineDTOList;
     }
+
     @Override
     public AirlineDTO save(AirlineDTO airlineDTO) {
         Airline airline = AirlineDTOAdapter.getAirline(airlineDTO);
@@ -63,8 +66,9 @@ public class AirlineServiceImpl implements AirlineService {
 
         return airlineDTO;
     }
+
     @Override
-    public AirlineDTO Update(int id, AirlineDTO airlinDTO){
+    public AirlineDTO Update(int id, AirlineDTO airlinDTO) {
         boolean found = airlineRepo.existsById(id);
         if (!found){
             throw new IllegalStateException("Airline with this id Not Found");
@@ -77,6 +81,7 @@ public class AirlineServiceImpl implements AirlineService {
         airlineRepo.save(airport);
         return airlinDTO;
     }
+
     @Override
     public void delete(int id){
         boolean exists=airlineRepo.existsById(id);
