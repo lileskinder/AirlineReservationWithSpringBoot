@@ -12,62 +12,102 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-
+@RequestMapping(path = "/airlines")
 public class AirlineController {
 
-    @Autowired
     AirlineServiceImpl airlineService;
 
-    @GetMapping("/airlines")
-    public ResponseEntity<List<AirlineDTO>> getAirlines() {
-        List<AirlineDTO> airlines = airlineService.findAll();
+    @Autowired
+    public AirlineController(AirlineServiceImpl airlineServiceImpl){
+        this.airlineService =airlineServiceImpl;
 
-        return new ResponseEntity<List<AirlineDTO>>(airlines, HttpStatus.OK);
     }
-    @GetMapping("/airlinesbyid/{id}")
-    public ResponseEntity<Airline> getAirlinetById(@PathVariable int id) {
-        int size=airlineService.findAll().size();
-        if (id>=size || id<0){
-            System.out.println("Cannot find");
-            throw new AirlineNotFoundException("Airline Id Not found:-"+id);
+
+    @GetMapping("")
+    public ResponseEntity<List<AirlineDTO>> getAirlines(@RequestParam Optional<Integer> page) {
+        try {
+            if (airlineService.findAll(page) != null) {
+                return new ResponseEntity<>(airlineService.findAll(page), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.valueOf("Error happened!!!"));
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
         }
-        System.out.println("get method");
+    }
+    @GetMapping("byid/{id}")
+    public ResponseEntity<Airline> getAirlinetById(@PathVariable int id) {
+
         Airline airline = airlineService.findById(id);
 
-        return new ResponseEntity<>(airline, HttpStatus.OK);
+        try {
+            if (airline != null) {
+                return new ResponseEntity<>(airline, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
+        }
     }
 
-    @GetMapping("/airlinesbycode/{code}")
+    @GetMapping("/bycode/{code}")
     public ResponseEntity<Airline> getAirlinetByCode(@PathVariable String code) {
 
         Airline airline = airlineService.findByCode(code);
 //
-        System.out.println("is?"+airline.equals(null));
-        return new ResponseEntity<>(airline, HttpStatus.OK);
+        try {
+            if (airline != null) {
+                return new ResponseEntity<>(airline, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
+        }
     }
 
-    @PostMapping("/airlines")
+    @PostMapping("")
     public ResponseEntity<AirlineDTO> addAirline(@RequestBody AirlineDTO airlineDTO) {
 
         Optional<Airline> AirOptional = Optional.ofNullable(airlineService.findByCode(airlineDTO.getCode()));
-
         if(AirOptional.isPresent()) {
             throw new IllegalStateException("code taken");
         }
-        AirlineDTO aline = airlineService.save(airlineDTO);
+        AirlineDTO airline = airlineService.save(airlineDTO);
 
-        return new ResponseEntity<AirlineDTO>(aline, HttpStatus.OK);
+        try {
+            if (airline != null) {
+                return new ResponseEntity<>(airline, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
+        }
+
+
+
     }
 
-    @PutMapping("airlines/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<AirlineDTO> update( @PathVariable("id") int id,  @RequestBody AirlineDTO airlinetDTO) {
 
         AirlineDTO airline = airlineService.Update(id, airlinetDTO);
-        return new ResponseEntity<>(airline, HttpStatus.OK);
+        try {
+            if (airline != null) {
+                return new ResponseEntity<>(airline, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
+        }
+
 
     }
 
-    @DeleteMapping("/airlines/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAirline(@PathVariable int id) {
         airlineService.delete(id);
         // need to send message if airport not found
