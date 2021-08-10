@@ -29,7 +29,7 @@ public class AirlineServiceImpl implements AirlineService {
     public List<AirlineDTO> findAll() {
         List<AirlineDTO> airlineDTOList = new ArrayList<>();
 
-        for (Airline airline: airlineRepo.findAll()) {
+        for (Airline airline : airlineRepo.findAll()) {
             airlineDTOList.add(AirlineDTOAdapter.getAirlineDTO(airline));
         }
 
@@ -40,11 +40,11 @@ public class AirlineServiceImpl implements AirlineService {
     public AirlineDTO findById(Integer id) {
 
         Optional<Airline> optionalAirlineDTO = airlineRepo.findById(id);
-       if(optionalAirlineDTO.isPresent()){
+        if (optionalAirlineDTO.isPresent()) {
             return AirlineDTOAdapter.getAirlineDTO(optionalAirlineDTO.get());
-       }else{
-           throw new IllegalStateException("Airline with id " + id + " does not exists");
-       }
+        } else {
+            throw new IllegalStateException("Airline with id " + id + " does not exists");
+        }
     }
 
     @Override
