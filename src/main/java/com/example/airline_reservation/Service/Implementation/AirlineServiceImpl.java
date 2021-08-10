@@ -3,9 +3,11 @@ package com.example.airline_reservation.Service.Implementation;
 import com.example.airline_reservation.DAO.AirlineRepo;
 import com.example.airline_reservation.Model.Airline;
 import com.example.airline_reservation.Service.AirlineService;
-import com.example.airline_reservation.Service.DTOs.AirlineDTO;
-import com.example.airline_reservation.Service.DTOs.DTOAdapters.AirlineDTOAdapter;
+import com.example.airline_reservation.Web.DTOs.AirlineDTO;
+import com.example.airline_reservation.Web.DTOs.DTOAdapters.AirlineDTOAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,41 +19,71 @@ import java.util.Optional;
 @Transactional
 public class AirlineServiceImpl implements AirlineService {
 
-    private final AirlineRepo airlineRepo;
-
-
     @Autowired
-    public AirlineServiceImpl(AirlineRepo airlineRepo) {
-        this.airlineRepo = airlineRepo;
+    AirlineRepo airlineRepo;
+    AirlineServiceImpl(AirlineRepo airlineRepo){
+        this.airlineRepo=airlineRepo;
     }
 
     @Override
-    public List<AirlineDTO> findAll() {
+    public Airline findById(Integer id) {
+        boolean found = airlineRepo.existsById(id);
+        if (!found){
+            throw new IllegalStateException("Airline with this id Not Found");
+        }
+        return airlineRepo.findById(id).get();
+    }
+    @Override
+    public Airline findByCode(String code){
+
+        return airlineRepo.findByCode(code).get();
+    }
+
+    @Override
+    public List<AirlineDTO> findAll(Optional<Integer> page) {
+        Pageable pagination = PageRequest.of(page.orElse(0), 10);
         List<AirlineDTO> airlineDTOList = new ArrayList<>();
 
-        for (Airline airline : airlineRepo.findAll()) {
+        for (Airline airline: airlineRepo.findAll(pagination)) {
             airlineDTOList.add(AirlineDTOAdapter.getAirlineDTO(airline));
         }
 
         return airlineDTOList;
     }
-
-    @Override
-    public AirlineDTO findById(Integer id) {
-
-        Optional<Airline> optionalAirlineDTO = airlineRepo.findById(id);
-        if (optionalAirlineDTO.isPresent()) {
-            return AirlineDTOAdapter.getAirlineDTO(optionalAirlineDTO.get());
-        } else {
-            throw new IllegalStateException("Airline with id " + id + " does not exists");
-        }
-    }
-
     @Override
     public AirlineDTO save(AirlineDTO airlineDTO) {
         Airline airline = AirlineDTOAdapter.getAirline(airlineDTO);
+        Optional<Airline> airlineOptional = airlineRepo.findByCode(airlineDTO.getCode());
+
+        if(airlineOptional.isPresent()) {
+            throw new IllegalStateException("code "+airlineOptional+"is already taken please provide another one");
+        }
+
         airlineRepo.save(airline);
 
         return airlineDTO;
+    }
+    @Override
+    public AirlineDTO Update(int id, AirlineDTO airlinDTO){
+        boolean found = airlineRepo.existsById(id);
+        if (!found){
+            throw new IllegalStateException("Airline with this id Not Found");
+        }
+        Airline airport1 = AirlineDTOAdapter.getAirline(airlinDTO);
+        Airline airport = airlineRepo.findById(id).get();
+        airport.setCode(airport1.getCode());
+        airport.setName(airport1.getName());
+
+        airlineRepo.save(airport);
+        return airlinDTO;
+    }
+    @Override
+    public void delete(int id){
+        boolean exists=airlineRepo.existsById(id);
+        if(!exists){
+            throw new IllegalStateException("Airline"+id+" doest not exists");
+        }
+        airlineRepo.deleteById(id);
+        System.out.println("deleted");
     }
 }
