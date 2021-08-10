@@ -13,7 +13,6 @@ public class Airport {
     private int id;
     private String code;
     private String name;
-
     @Embedded
     private Address address;
 
@@ -27,4 +26,5 @@ public class Airport {
         this.name = name;
         this.address = address;
     }
+
 }
