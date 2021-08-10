@@ -22,8 +22,12 @@ import com.example.airline_reservation.Service.DTOs.PersonDTO;
 @RequestMapping("/passengers")
 public class PassengerController {
 
+	final PassengerService service;
+
 	@Autowired
-	PassengerService service;
+	public PassengerController(PassengerService service) {
+		this.service = service;
+	}
 
 	@GetMapping
 	public ResponseEntity<List<PassengerDTO>> getPassengers() {

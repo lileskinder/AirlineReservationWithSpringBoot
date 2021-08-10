@@ -22,8 +22,12 @@ import com.example.airline_reservation.Service.DTOs.DTOAdapters.AgentDTOAdapter;
 @Transactional
 public class AgentServiceImpl implements AgentService {
 
+	private final AgentRepo repo;
+
 	@Autowired
-	AgentRepo repo;
+	public AgentServiceImpl(AgentRepo repo) {
+		this.repo = repo;
+	}
 
 	@Override
 	public AgentDTO addAgent(AgentDTO AgentDTO) {

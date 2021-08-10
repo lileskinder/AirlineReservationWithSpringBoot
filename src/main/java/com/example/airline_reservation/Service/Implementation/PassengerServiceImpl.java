@@ -26,8 +26,12 @@ import java.time.LocalDate;
 @Transactional
 public class PassengerServiceImpl implements PassengerService {
 
+    private final PassengerRepo passengerRepo;
+
     @Autowired
-    PassengerRepo passengerRepo;
+	public PassengerServiceImpl(PassengerRepo passengerRepo) {
+		this.passengerRepo = passengerRepo;
+	}
 
 	@Override
 	public PassengerDTO addPassenger(PassengerDTO passengerDTO) {

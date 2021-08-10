@@ -15,27 +15,20 @@ import java.util.List;
 @RestController
 public class TicketController {
 
-    @Autowired
-    TicketServiceImpl ticketService;
+    final TicketServiceImpl ticketService;
 
-//    @GetMapping("/tickets")
-//    public ResponseEntity<List<TicketDTO>> getAllTickets() {
-//        List<TicketDTO> tickets = ticketService.findAllTickets();
-//
-//        return new ResponseEntity<List<TicketDTO>>(tickets, HttpStatus.OK);
-//    }
-//
+    @Autowired
+    public TicketController(TicketServiceImpl ticketService) {
+        this.ticketService = ticketService;
+    }
+
     @GetMapping("/tickets/{id}")
     public ResponseEntity<TicketDTO> getTicket(@PathVariable int id) {
-        return new ResponseEntity<TicketDTO>(ticketService.getTicket(id), HttpStatus.OK);
+        return new ResponseEntity<>(ticketService.getTicket(id), HttpStatus.OK);
     }
-//
+
     @PostMapping("/tickets")
     public ResponseEntity<TicketDTO> createTicket(@RequestBody TicketDTO ticketDTO) {
-        TicketDTO ticketdto = new TicketDTO();
-
-
-//        return new ResponseEntity<TicketDTO>(ticketdto, HttpStatus.OK);
-        return new ResponseEntity<TicketDTO>(ticketService.createTicket(ticketDTO), HttpStatus.OK);
+        return new ResponseEntity<>(ticketService.createTicket(ticketDTO), HttpStatus.OK);
     }
 }

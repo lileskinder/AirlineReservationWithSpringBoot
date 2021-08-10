@@ -15,8 +15,12 @@ import java.util.List;
 @Service
 @Transactional
 public class AirportServiceImpl implements AirportService {
+    private final AirportRepo airportRepository;
+
     @Autowired
-    AirportRepo airportRepository;
+    public AirportServiceImpl(AirportRepo airportRepository) {
+        this.airportRepository = airportRepository;
+    }
 
 
     public List<AirportDTO> getAllAirport(){

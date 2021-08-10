@@ -108,18 +108,8 @@ public class AirlineController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAirline(@PathVariable int id) {
         airlineService.delete(id);
-        // need to send message if airport not found
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @ExceptionHandler
-    public ResponseEntity<AirlineErrorResponse> handleException(AirlineNotFoundException exec) {
-        AirlineErrorResponse err = new AirlineErrorResponse();
-        err.setStatus(HttpStatus.NOT_FOUND.value());
-        err.setMessage(exec.getMessage());
-        err.setTimestamp(System.currentTimeMillis());
-
-        return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
-    }
 
 }

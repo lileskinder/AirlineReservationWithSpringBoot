@@ -19,8 +19,12 @@ import com.example.airline_reservation.Service.DTOs.DTOAdapters.AdminDTOAdapter;
 @Transactional
 public class AdminServiceImpl implements AdminService {
 
+	private final AdminRepo repo;
+
 	@Autowired
-	AdminRepo repo;
+	public AdminServiceImpl(AdminRepo repo) {
+		this.repo = repo;
+	}
 
 	@Override
 	public AdminDTO addAdmin(AdminDTO adminDTO) {
