@@ -181,7 +181,22 @@ public class FlightServiceImpl implements FlightService {
         if(flightDTOList.size() > 0)
             return flightDTOList;
         else {
-            throw new IllegalStateException("There are no flights in the specific date!!!");
+            throw new IllegalStateException("There are no flights in the specified date!!!");
+        }
+    }
+
+    @Override
+    public List<FlightDTO> findFlightsFromAirport(Integer airportId) {
+        List<FlightDTO> flightDTOList = new ArrayList<>();
+
+        for (Flight flight : flightRepo.flightsFromAirport(airportId)) {
+            flightDTOList.add(FlightDTOAdapter.getFlightDTO(flight));
+        }
+
+        if(flightDTOList.size() > 0)
+            return flightDTOList;
+        else {
+            throw new IllegalStateException("There are no flights in the specified Airport!!!");
         }
     }
 

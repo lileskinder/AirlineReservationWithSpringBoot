@@ -25,4 +25,6 @@ public interface FlightService {
     FlightDTO cancelFlight(Integer flightNumber, String flightStatus);
 
     List<FlightDTO> flightsInSpecificDate(LocalDate departureDate);
+
+    List<FlightDTO> findFlightsFromAirport(Integer airportId);
 }

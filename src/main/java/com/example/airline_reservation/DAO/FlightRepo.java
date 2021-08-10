@@ -21,4 +21,7 @@ public interface FlightRepo extends JpaRepository<Flight, Integer> {
 
     @Query("SELECT f from Flight f WHERE f.departureTime >= ?1 and f.departureTime < ?2")
     List<Flight> findByDate(LocalDateTime departureDate, LocalDateTime departureDatePlus);
+
+    @Query("SELECT f from Flight f WHERE f.departureAirport.id = ?1")
+    List<Flight> flightsFromAirport(Integer airportId);
 }

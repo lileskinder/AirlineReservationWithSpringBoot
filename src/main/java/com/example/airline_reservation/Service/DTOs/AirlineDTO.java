@@ -7,5 +7,4 @@ public class AirlineDTO {
     private String code;
     private String name;
     private String history;
-
 }
