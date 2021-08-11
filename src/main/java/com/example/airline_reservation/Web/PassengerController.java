@@ -48,13 +48,13 @@ public class PassengerController {
 	}
 
 	@DeleteMapping
-	public ResponseEntity<PersonDTO> deletePassenger(@RequestBody PersonDTO personDTO) {
-		service.deletePassenger(personDTO.getId());
+	public ResponseEntity<PassengerDTO> deletePassenger(@RequestBody PassengerDTO passengerDTO) {
+		service.deletePassenger(passengerDTO.getId());
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<PersonDTO> deletePassengerById(@PathVariable(name = "id") int id) {
+	public ResponseEntity<PassengerDTO> deletePassengerById(@PathVariable(name = "id") int id) {
 		service.deletePassenger(id);
 		return new ResponseEntity(HttpStatus.OK);
 	}

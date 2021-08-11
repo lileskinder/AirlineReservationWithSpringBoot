@@ -20,14 +20,6 @@ public class PassengerDTO extends PersonDTO {
 		this.dob = dob;
 	}
 
-	public LocalDate getDob() {
-		return dob;
-	}
-
-	public void setDob(LocalDate dob) {
-		this.dob = dob;
-	}
-
 	public String toString() {
 		return super.toString() + dob.toString();
 	}

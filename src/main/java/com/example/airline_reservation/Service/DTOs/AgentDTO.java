@@ -15,14 +15,6 @@ public class AgentDTO extends PersonDTO {
 		this.agentId = agentId;
 	}
 
-	public int getAgentId() {
-		return agentId;
-	}
-
-	public void setAgentId(int agentId) {
-		this.agentId = agentId;
-	}
-
 	public String toString() {
 		return super.toString() + agentId;
 	}
