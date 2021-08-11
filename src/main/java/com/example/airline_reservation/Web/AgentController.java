@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,33 +22,33 @@ public class AgentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AgentDTO>> getAgents() {
+    public ResponseEntity<?> getAgents() {
         return new ResponseEntity<List<AgentDTO>>(service.getAgents(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AgentDTO> getAgentById(@PathVariable(name = "id") int id) {
+    public ResponseEntity<?> getAgentById(@PathVariable(name = "id") int id) {
         return new ResponseEntity<AgentDTO>(service.getAgentById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<AgentDTO> addAgent(@RequestBody AgentDTO AgentDTO) {
+    public ResponseEntity<?> addAgent(@Valid @RequestBody AgentDTO AgentDTO) {
         return new ResponseEntity<AgentDTO>(service.addAgent(AgentDTO), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<AgentDTO> updateAgent(@RequestBody AgentDTO AgentDTO) {
+    public ResponseEntity<?> updateAgent(@Valid @RequestBody AgentDTO AgentDTO) {
         return new ResponseEntity<AgentDTO>(service.updateAgent(AgentDTO), HttpStatus.OK);
     }
 
     @DeleteMapping
-    public ResponseEntity<AgentDTO> deleteAgent(@RequestBody AgentDTO AgentDTO) {
+    public ResponseEntity<?> deleteAgent(@Valid @RequestBody AgentDTO AgentDTO) {
         service.deleteAgent(AgentDTO.getId());
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<AgentDTO> deleteAgentById(@PathVariable(name = "id") int id) {
+    public ResponseEntity<?> deleteAgentById(@PathVariable(name = "id") int id) {
         service.deleteAgent(id);
         return new ResponseEntity(HttpStatus.OK);
     }

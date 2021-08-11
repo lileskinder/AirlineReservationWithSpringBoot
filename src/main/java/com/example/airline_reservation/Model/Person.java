@@ -18,9 +18,16 @@ public abstract class Person {
     @GeneratedValue
     protected int id;
 
+    @Column(nullable = false)
     protected String firstName;
+
+    @Column(nullable = false)
     protected String lastName;
+
+    @Column(nullable = false)
     protected Address address;
+
+    @Column(nullable = false, unique = true, updatable = false)
     protected String email;
 
     public Person() {}

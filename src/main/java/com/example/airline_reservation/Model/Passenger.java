@@ -1,6 +1,8 @@
 package com.example.airline_reservation.Model;
 
 import lombok.Data;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -8,6 +10,7 @@ import java.util.Objects;
 @Data
 @Entity
 public class Passenger extends Person {
+    @Column(nullable = false)
     private LocalDate dob;
 
     public Passenger() {}

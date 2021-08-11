@@ -8,10 +8,8 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-@Repository
-@Transactional
+@Repository @Transactional
 public interface AirportRepo extends JpaRepository<Airport, Integer> {
-//    @Query("SELECT A from Airport a WHERE a.code = ?1")
-//    Optional<Airport> findByAirportNumber(Integer AirportCode);
+    @Query("SELECT a from Airport a WHERE a.code = :code")
     Airport findByCode(String code);
 }

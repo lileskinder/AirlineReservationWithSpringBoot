@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.airline_reservation.Service.AdminService;
 import com.example.airline_reservation.Service.DTOs.AdminDTO;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/admins")
 public class AdminController {
@@ -28,33 +30,33 @@ public class AdminController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<AdminDTO>> getAdmins() {
+	public ResponseEntity<?> getAdmins() {
 		return new ResponseEntity<List<AdminDTO>>(service.getAdmins(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<AdminDTO> getAdminById(@PathVariable(name = "id") int id) {
+	public ResponseEntity<?> getAdminById(@PathVariable(name = "id") int id) {
 		return new ResponseEntity<AdminDTO>(service.getAdminById(id), HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<AdminDTO> addAdmin(@RequestBody AdminDTO AdminDTO) {
+	public ResponseEntity<?> addAdmin(@Valid @RequestBody AdminDTO AdminDTO) {
 		return new ResponseEntity<AdminDTO>(service.addAdmin(AdminDTO), HttpStatus.OK);
 	}
 
 	@PutMapping
-	public ResponseEntity<AdminDTO> updateAdmin(@RequestBody AdminDTO AdminDTO) {
+	public ResponseEntity<?> updateAdmin(@Valid @RequestBody AdminDTO AdminDTO) {
 		return new ResponseEntity<AdminDTO>(service.updateAdmin(AdminDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping
-	public ResponseEntity<AdminDTO> deleteAdmin(@RequestBody AdminDTO AdminDTO) {
+	public ResponseEntity<?> deleteAdmin(@Valid @RequestBody AdminDTO AdminDTO) {
 		service.deleteAdmin(AdminDTO.getId());
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<AdminDTO> deleteAdminById(@PathVariable(name = "id") int id) {
+	public ResponseEntity<?> deleteAdminById(@PathVariable(name = "id") int id) {
 		service.deleteAdmin(id);
 		return new ResponseEntity(HttpStatus.OK);
 	}

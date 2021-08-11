@@ -3,14 +3,23 @@ package com.example.airline_reservation.Service.DTOs;
 import com.example.airline_reservation.Model.Address;
 import lombok.Data;
 
+import javax.persistence.Column;
+
 @Data
 public class PersonDTO {
     protected int id;
-    protected String firstName;
-    protected String lastName;
-    protected String email;
 
+    @Column(nullable = false)
+    protected String firstName;
+
+    @Column(nullable = false)
+    protected String lastName;
+
+    @Column(nullable = false)
     protected Address address;
+
+    @Column(nullable = false, unique = true, updatable = false)
+    protected String email;
 
     public PersonDTO() {}
 

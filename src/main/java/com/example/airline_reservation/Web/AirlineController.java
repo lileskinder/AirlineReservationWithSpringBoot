@@ -24,7 +24,7 @@ public class AirlineController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<AirlineDTO>> getAirlines(@RequestParam Optional<Integer> page) {
+    public ResponseEntity<?> getAirlines(@RequestParam Optional<Integer> page) {
         try {
             if (airlineService.findAll(page) != null) {
                 return new ResponseEntity<>(airlineService.findAll(page), HttpStatus.OK);
@@ -37,7 +37,7 @@ public class AirlineController {
     }
 
     @GetMapping("/byid/{id}")
-    public ResponseEntity<Airline> getAirlinetById(@PathVariable int id) {
+    public ResponseEntity<?> getAirlinetById(@PathVariable int id) {
 
         Airline airline = airlineService.findById(id);
 
@@ -53,7 +53,7 @@ public class AirlineController {
     }
 
     @GetMapping("/bycode/{code}")
-    public ResponseEntity<Airline> getAirlinetByCode(@PathVariable String code) {
+    public ResponseEntity<?> getAirlinetByCode(@PathVariable String code) {
 
         Airline airline = airlineService.findByCode(code);
 
@@ -69,7 +69,7 @@ public class AirlineController {
     }
 
     @PostMapping("")
-    public ResponseEntity<AirlineDTO> addAirline(@RequestBody AirlineDTO airlineDTO) {
+    public ResponseEntity<?> addAirline(@RequestBody AirlineDTO airlineDTO) {
 
         Optional<Airline> AirOptional = Optional.ofNullable(airlineService.findByCode(airlineDTO.getCode()));
         if (AirOptional.isPresent()) {
@@ -89,7 +89,7 @@ public class AirlineController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AirlineDTO> update(@PathVariable("id") int id, @RequestBody AirlineDTO airlinetDTO) {
+    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody AirlineDTO airlinetDTO) {
 
         AirlineDTO airline = airlineService.Update(id, airlinetDTO);
         try {

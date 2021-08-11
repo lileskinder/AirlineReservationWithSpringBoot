@@ -72,6 +72,11 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
+    public FlightDTO findByFlightId(Integer id) {
+        return FlightDTOAdapter.getFlightDTO(flightRepo.getById(id));
+    }
+
+    @Override
     public FlightDTO findByFlightNumber(Integer flightNumber) {
         Optional<Flight> flightOptional = flightRepo.findByFlightNumber(flightNumber);
         Flight flight = flightOptional.get();

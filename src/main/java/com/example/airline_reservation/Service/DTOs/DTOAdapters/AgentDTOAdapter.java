@@ -21,7 +21,7 @@ public class AgentDTOAdapter {
 
 	public static Agent getAgent(AgentDTO agentDTO) {
 		Agent agent = new Agent();
-		if (agent != null) {
+		if (agentDTO != null) {
 			agent.setId(agentDTO.getId());
 			agent.setFirstName(agentDTO.getFirstName());
 			agent.setLastName(agentDTO.getLastName());

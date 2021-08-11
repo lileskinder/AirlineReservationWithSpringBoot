@@ -18,6 +18,8 @@ import com.example.airline_reservation.Service.PassengerService;
 import com.example.airline_reservation.Service.DTOs.PassengerDTO;
 import com.example.airline_reservation.Service.DTOs.PersonDTO;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/passengers")
 public class PassengerController {
@@ -30,35 +32,35 @@ public class PassengerController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<PassengerDTO>> getPassengers() {
+	public ResponseEntity<?> getPassengers() {
 		List<PassengerDTO> passengers = service.getPassengers();
 		return new ResponseEntity<List<PassengerDTO>>(passengers, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<PersonDTO> getPassengerById(@PathVariable(name = "id") int id) {
+	public ResponseEntity<?> getPassengerById(@PathVariable(name = "id") int id) {
 		return new ResponseEntity<PersonDTO>(service.getPassengerById(id), HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<PassengerDTO> addPassenger(@RequestBody PassengerDTO passengerDTO) {
+	public ResponseEntity<?> addPassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
 		System.out.println(passengerDTO);
 		return new ResponseEntity<PassengerDTO>(service.addPassenger(passengerDTO), HttpStatus.OK);
 	}
 
 	@PutMapping
-	public ResponseEntity<PassengerDTO> updatePassenger(@RequestBody PassengerDTO passengerDTO) {
+	public ResponseEntity<?> updatePassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
 		return new ResponseEntity<PassengerDTO>(service.updatePassenger(passengerDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping
-	public ResponseEntity<PersonDTO> deletePassenger(@RequestBody PersonDTO personDTO) {
+	public ResponseEntity<?> deletePassenger(@Valid @RequestBody PersonDTO personDTO) {
 		service.deletePassenger(personDTO.getId());
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<PersonDTO> deletePassengerById(@PathVariable(name = "id") int id) {
+	public ResponseEntity<?> deletePassengerById(@PathVariable(name = "id") int id) {
 		service.deletePassenger(id);
 		return new ResponseEntity(HttpStatus.OK);
 	}

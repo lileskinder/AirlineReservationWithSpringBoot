@@ -11,7 +11,11 @@ public class Airport {
     @Id
     @GeneratedValue
     private int id;
+
+    @Column(nullable = false, unique = true, updatable = false)
     private String code;
+
+    @Column(nullable = false)
     private String name;
 
     @Embedded

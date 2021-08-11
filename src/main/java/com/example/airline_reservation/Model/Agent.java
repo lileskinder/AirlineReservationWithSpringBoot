@@ -2,12 +2,16 @@ package com.example.airline_reservation.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Data
 @Entity
 public class Agent extends Person {
+
+    @Column(nullable = false, updatable = false, unique = true)
     private int agentId;
 
     public Agent() {}
