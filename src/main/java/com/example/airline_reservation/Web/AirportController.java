@@ -24,10 +24,8 @@ public class AirportController {
 
     @GetMapping("")
     public ResponseEntity<?> getAllAirport() {
-
         List<AirportDTO> airport = airportService.getAllAirport();
-        return new ResponseEntity<List<AirportDTO>>(airport, HttpStatus.OK);
-
+        return new ResponseEntity<>(airport, HttpStatus.OK);
     }
 
 

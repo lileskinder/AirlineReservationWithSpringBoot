@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -20,93 +20,42 @@ public class AirlineController {
     @Autowired
     public AirlineController(AirlineServiceImpl airlineServiceImpl) {
         this.airlineService = airlineServiceImpl;
-
     }
 
     @GetMapping("")
     public ResponseEntity<?> getAirlines(@RequestParam Optional<Integer> page) {
-        try {
-            if (airlineService.findAll(page) != null) {
-                return new ResponseEntity<>(airlineService.findAll(page), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Error happened!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
+        return new ResponseEntity<>(airlineService.findAll(page), HttpStatus.OK);
     }
 
     @GetMapping("/byid/{id}")
     public ResponseEntity<?> getAirlinetById(@PathVariable int id) {
-
         Airline airline = airlineService.findById(id);
-
-        try {
-            if (airline != null) {
-                return new ResponseEntity<>(airline, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
+        return new ResponseEntity<>(airline, HttpStatus.OK);
     }
 
     @GetMapping("/bycode/{code}")
     public ResponseEntity<?> getAirlinetByCode(@PathVariable String code) {
 
         Airline airline = airlineService.findByCode(code);
+        return new ResponseEntity<>(airline, HttpStatus.OK);
 
-        try {
-            if (airline != null) {
-                return new ResponseEntity<>(airline, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
     }
 
     @PostMapping("")
-    public ResponseEntity<?> addAirline(@RequestBody AirlineDTO airlineDTO) {
-
-        Optional<Airline> AirOptional = Optional.ofNullable(airlineService.findByCode(airlineDTO.getCode()));
-        if (AirOptional.isPresent()) {
-            throw new IllegalStateException("code taken");
-        }
+    public ResponseEntity<?> addAirline(@Valid @RequestBody AirlineDTO airlineDTO) {
         AirlineDTO airline = airlineService.save(airlineDTO);
-
-        try {
-            if (airline != null) {
-                return new ResponseEntity<>(airline, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
+        return new ResponseEntity<>(airline, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody AirlineDTO airlinetDTO) {
+    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @RequestBody AirlineDTO airlinetDTO) {
 
         AirlineDTO airline = airlineService.Update(id, airlinetDTO);
-        try {
-            if (airline != null) {
-                return new ResponseEntity<>(airline, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
-
-
+        return new ResponseEntity<>(airline, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAirline(@PathVariable int id) {
+    public ResponseEntity<?> deleteAirline(@Valid @PathVariable int id) {
         airlineService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

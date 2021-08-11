@@ -23,22 +23,22 @@ public class AgentController {
 
     @GetMapping
     public ResponseEntity<?> getAgents() {
-        return new ResponseEntity<List<AgentDTO>>(service.getAgents(), HttpStatus.OK);
+        return new ResponseEntity<>(service.getAgents(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getAgentById(@PathVariable(name = "id") int id) {
-        return new ResponseEntity<AgentDTO>(service.getAgentById(id), HttpStatus.OK);
+        return new ResponseEntity<>(service.getAgentById(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<?> addAgent(@Valid @RequestBody AgentDTO AgentDTO) {
-        return new ResponseEntity<AgentDTO>(service.addAgent(AgentDTO), HttpStatus.OK);
+        return new ResponseEntity<>(service.addAgent(AgentDTO), HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<?> updateAgent(@Valid @RequestBody AgentDTO AgentDTO) {
-        return new ResponseEntity<AgentDTO>(service.updateAgent(AgentDTO), HttpStatus.OK);
+        return new ResponseEntity<>(service.updateAgent(AgentDTO), HttpStatus.OK);
     }
 
     @DeleteMapping

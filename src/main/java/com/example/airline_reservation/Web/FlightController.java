@@ -26,52 +26,27 @@ public class FlightController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> addFlight(@Valid @RequestBody FlightDTO flightDTO) {
-        FlightDTO flight = flightService.addFlight(flightDTO);
-        try {
-            if (flight != null) {
-                return new ResponseEntity<FlightDTO>(flight, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
-
+    public ResponseEntity<FlightDTO> addFlight(@RequestBody FlightDTO flightDTO) {
+        return ResponseEntity.ok(flightService.addFlight(flightDTO));
+//        return new ResponseEntity<>(flightService.addFlight(flightDTO), HttpStatus.OK);
     }
 
+
     @GetMapping("")
-    public ResponseEntity<?> getFlights(@RequestParam Optional<Integer> page) {
-        List<FlightDTO> flightDTOList = flightService.findAll(page);
-        try {
-            if (flightDTOList != null) {
-                return new ResponseEntity<List<FlightDTO>>(flightDTOList, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
+    public ResponseEntity<List<FlightDTO>> getFlights(@RequestParam Optional<Integer> page) {
+        return ResponseEntity.ok(flightService.findAll(page));
     }
 
     @GetMapping("/{flightNumber}")
-    public ResponseEntity<?> getFlight(@PathVariable("flightNumber") Integer flightNumber) {
-        FlightDTO flight = flightService.findByFlightNumber(flightNumber);
-        try {
-            if (flight != null) {
-                return new ResponseEntity<FlightDTO>(flight, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
+    public ResponseEntity<FlightDTO> getFlight(@PathVariable("flightNumber") Integer flightNumber) {
+        return ResponseEntity.ok(flightService.findByFlightNumber(flightNumber));
     }
 
     @PutMapping("/{flightNumber}")
-    public ResponseEntity<?> updateFlight(
+    public ResponseEntity<FlightDTO> updateFlight(
+            @Valid
             @PathVariable("flightNumber") Integer flightNumber,
-            @Valid @RequestBody FlightDTO flightDTO
+            @RequestBody FlightDTO flightDTO
     ) {
         FlightDTO flight = flightService.updateFlight(
                 flightNumber,
@@ -83,36 +58,19 @@ public class FlightController {
                 flightDTO.getArrivalTime(),
                 flightDTO.getFlightStatus()
         );
-        try {
-            if (flight != null) {
-                return new ResponseEntity<FlightDTO>(flight, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
-
+        return ResponseEntity.ok(flight);
     }
 
     @PatchMapping("/{flightNumber}")
-    public ResponseEntity<?> cancelFlight(
+    public ResponseEntity<FlightDTO> cancelFlight(
             @PathVariable("flightNumber") Integer flightNumber,
-            @Valid @RequestBody FlightDTO flightDTO
+            @RequestBody FlightDTO flightDTO
     ) {
         FlightDTO flight = flightService.cancelFlight(
                 flightNumber,
                 flightDTO.getFlightStatus()
         );
-        try {
-            if (flight != null) {
-                return new ResponseEntity<FlightDTO>(flight, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
+        return ResponseEntity.ok(flight);
     }
 
     @GetMapping("/specificDate")
@@ -120,29 +78,13 @@ public class FlightController {
             @RequestParam(value = "departureDate")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate departureDate
     ) {
-        try {
-            if (flightService.flightsInSpecificDate(departureDate) != null) {
-                return new ResponseEntity<>(flightService.flightsInSpecificDate(departureDate), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
+        return ResponseEntity.ok(flightService.flightsInSpecificDate(departureDate));
     }
 
     @GetMapping("/flightFromAirport")
     public ResponseEntity<List<FlightDTO>> getFlightsFromAirport(
             @RequestParam(value = "airportId") Integer airportId
     ) {
-        try {
-            if (flightService.findFlightsFromAirport(airportId) != null) {
-                return new ResponseEntity<>(flightService.findFlightsFromAirport(airportId), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
+        return ResponseEntity.ok(flightService.findFlightsFromAirport(airportId));
     }
 }

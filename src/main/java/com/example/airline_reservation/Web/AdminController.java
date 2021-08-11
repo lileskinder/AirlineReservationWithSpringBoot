@@ -31,22 +31,22 @@ public class AdminController {
 
 	@GetMapping
 	public ResponseEntity<?> getAdmins() {
-		return new ResponseEntity<List<AdminDTO>>(service.getAdmins(), HttpStatus.OK);
+		return new ResponseEntity<>(service.getAdmins(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getAdminById(@PathVariable(name = "id") int id) {
-		return new ResponseEntity<AdminDTO>(service.getAdminById(id), HttpStatus.OK);
+		return new ResponseEntity<>(service.getAdminById(id), HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<?> addAdmin(@Valid @RequestBody AdminDTO AdminDTO) {
-		return new ResponseEntity<AdminDTO>(service.addAdmin(AdminDTO), HttpStatus.OK);
+		return new ResponseEntity<>(service.addAdmin(AdminDTO), HttpStatus.OK);
 	}
 
 	@PutMapping
 	public ResponseEntity<?> updateAdmin(@Valid @RequestBody AdminDTO AdminDTO) {
-		return new ResponseEntity<AdminDTO>(service.updateAdmin(AdminDTO), HttpStatus.OK);
+		return new ResponseEntity<>(service.updateAdmin(AdminDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping

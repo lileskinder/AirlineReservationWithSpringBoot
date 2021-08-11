@@ -3,6 +3,7 @@ package com.example.airline_reservation.Service.Implementation;
 import com.example.airline_reservation.DAO.AirlineRepo;
 import com.example.airline_reservation.DAO.AirportRepo;
 import com.example.airline_reservation.DAO.FlightRepo;
+import com.example.airline_reservation.ExceptionHandling.MyCustomException;
 import com.example.airline_reservation.Model.Flight;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.FlightDTOAdapter;
 import com.example.airline_reservation.Service.DTOs.FlightDTO;
@@ -55,7 +56,7 @@ public class FlightServiceImpl implements FlightService {
         Flight flight = FlightDTOAdapter.getFlight(flightDTO, airportRepo, airlineRepo);
 
         if (flightOptional.isPresent()) {
-            throw new IllegalStateException("Flight Number already Existed!!!");
+            throw new MyCustomException("Flight Number already Existed!!!");
         }
 
         if (
@@ -65,7 +66,7 @@ public class FlightServiceImpl implements FlightService {
         ) {
             flightRepo.save(flight);
         } else {
-            throw new IllegalStateException("Incorrect Flight Status!!!");
+            throw new MyCustomException("Incorrect Flight Status!!!");
         }
 
         return flightDTO;
@@ -79,13 +80,12 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public FlightDTO findByFlightNumber(Integer flightNumber) {
         Optional<Flight> flightOptional = flightRepo.findByFlightNumber(flightNumber);
-        Flight flight = flightOptional.get();
-        FlightDTO flightDTO = FlightDTOAdapter.getFlightDTO(flight);
+        FlightDTO flightDTO = FlightDTOAdapter.getFlightDTO(flightOptional.get());
 
-        if (flightOptional.isPresent()) {
-            return flightDTO;
+        if (!flightOptional.isPresent()) {
+            throw new MyCustomException("Flight Number does not exist!!!");
         } else {
-            throw new IllegalStateException("Flight Number does not exist!!!");
+            return flightDTO;
         }
 
 
@@ -143,10 +143,10 @@ public class FlightServiceImpl implements FlightService {
             ) {
                 flight.setFlightStatus(flightStatus);
             } else {
-                throw new IllegalStateException("Incorrect Flight Status!!!");
+                throw new MyCustomException("Incorrect Flight Status!!!");
             }
         } else {
-            throw new IllegalStateException("Flight Number does not exist!!!");
+            throw new MyCustomException("Flight Number does not exist!!!");
         }
 
         FlightDTO flightDTO2 = FlightDTOAdapter.getFlightDTO(flight);
@@ -166,10 +166,10 @@ public class FlightServiceImpl implements FlightService {
                     flightStatus.equalsIgnoreCase(String.valueOf(FlightStatus.CANCELLED))) {
                 flight.setFlightStatus(flightStatus);
             } else {
-                throw new IllegalStateException("Incorrect Flight Status!!!");
+                throw new MyCustomException("Incorrect Flight Status!!!");
             }
         } else {
-            throw new IllegalStateException("Flight Number does not exist!!!");
+            throw new MyCustomException("Flight Number does not exist!!!");
         }
 
         FlightDTO flightDTO = FlightDTOAdapter.getFlightDTO(flight);
@@ -192,7 +192,7 @@ public class FlightServiceImpl implements FlightService {
         if(flightDTOList.size() > 0)
             return flightDTOList;
         else {
-            throw new IllegalStateException("There are no flights in the specified date!!!");
+            throw new MyCustomException("There are no flights in the specified date!!!");
         }
     }
 
@@ -207,7 +207,7 @@ public class FlightServiceImpl implements FlightService {
         if(flightDTOList.size() > 0)
             return flightDTOList;
         else {
-            throw new IllegalStateException("There are no flights in the specified Airport!!!");
+            throw new MyCustomException("There are no flights in the specified Airport!!!");
         }
     }
 
