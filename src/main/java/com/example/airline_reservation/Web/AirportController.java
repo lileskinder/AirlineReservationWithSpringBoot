@@ -32,23 +32,13 @@ public class AirportController {
     @GetMapping("/{airportCode}")
     public ResponseEntity<?> getAirportByCode(@PathVariable("airportCode") String airportCode) {
         Airport airport = airportService.getAirportByCode(airportCode);
-        try{
-            if(airport != null){
-                return new ResponseEntity<Airport>(airport, HttpStatus.OK);
-            }
-            else{
-                return  new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-            }
-        }
-        catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.valueOf(HttpStatus.BAD_REQUEST + e.getMessage()));
-        }
+        return new ResponseEntity<>(airport, HttpStatus.OK);
     }
 
     @PostMapping("")
     public ResponseEntity<?> addAirport(@Valid  @RequestBody AirportDTO airportDTO) {
         AirportDTO airport = airportService.save(airportDTO);
-        return new ResponseEntity<AirportDTO>(airport, HttpStatus.OK);
+        return new ResponseEntity<>(airport, HttpStatus.OK);
 
     }
 
@@ -58,14 +48,13 @@ public class AirportController {
             @Valid @RequestBody AirportDTO airportDTO
     ) {
         AirportDTO airport = airportService.Update(airportId, airportDTO);
-        return new ResponseEntity<AirportDTO>(airport, HttpStatus.OK);
+        return new ResponseEntity<>(airport, HttpStatus.OK);
 
     }
 
     @DeleteMapping("/{airportId}")
     public ResponseEntity<?> deleteAirport(@PathVariable int airportId) {
         airportService.deleteAirport(airportId);
-        // need to send message if airport not found
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
