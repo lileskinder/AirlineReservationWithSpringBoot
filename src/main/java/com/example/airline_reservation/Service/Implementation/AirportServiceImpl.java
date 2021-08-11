@@ -15,8 +15,12 @@ import java.util.List;
 @Service
 @Transactional
 public class AirportServiceImpl implements AirportService {
+    private final AirportRepo airportRepository;
+
     @Autowired
-    AirportRepo airportRepository;
+    public AirportServiceImpl(AirportRepo airportRepository) {
+        this.airportRepository = airportRepository;
+    }
 
 
     public List<AirportDTO> getAllAirport(){
@@ -37,19 +41,22 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public AirportDTO Update(AirportDTO airportDTO) {
-        return null;
+
+        return save(airportDTO);
     }
 
-    public Airport getAirportById(int airportId){
-        return airportRepository.findById(airportId).get();
+    public Airport getAirportByCode(String airportCode){
+
+        return airportRepository.findByCode(airportCode);
     }
 
+    @Override
     public AirportDTO Update(int airportId, AirportDTO airportDTO){
-        Airport airport1 = AirportDTOAdapter.getAirport(airportDTO);
+        Airport newAirport = AirportDTOAdapter.getAirport(airportDTO);
         Airport airport = airportRepository.findById(airportId).get();
-        airport.setCode(airport1.getCode());
-        airport.setName(airport1.getName());
-        airport.setAddress(airport1.getAddress());
+        airport.setCode(newAirport.getCode());
+        airport.setName(newAirport.getName());
+        airport.setAddress(newAirport.getAddress());
 
         airportRepository.save(airport);
         return airportDTO;

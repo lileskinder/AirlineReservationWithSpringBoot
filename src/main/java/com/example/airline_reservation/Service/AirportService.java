@@ -12,6 +12,7 @@ public interface AirportService {
     List<AirportDTO> getAllAirport();
     AirportDTO save(AirportDTO airportDTO);
     AirportDTO Update(AirportDTO airportDTO);
-    Airport getAirportById(int airportId);
+    AirportDTO Update(int airportId, AirportDTO airportDTO);
+    Airport getAirportByCode(String airportCode);
     void deleteAirport(int airportId);
 }

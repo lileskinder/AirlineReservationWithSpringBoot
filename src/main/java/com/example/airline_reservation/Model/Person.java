@@ -1,20 +1,46 @@
 package com.example.airline_reservation.Model;
 
 import lombok.Data;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person {
     @Id
     @GeneratedValue
-    private int id;
+    protected int id;
 
-    private String firstName;
-    private String lastName;
-    private Address address;
-    private String email;
+    @Column(nullable = false)
+    protected String firstName;
+
+    @Column(nullable = false)
+    protected String lastName;
+
+    @Column(nullable = false)
+    protected Address address;
+
+    @Column(nullable = false, unique = true, updatable = false)
+    protected String email;
+
+    @Column(nullable = false, unique = true)
+    protected String userName;
+
+    public Person() {
+    }
+
+    public Person(int id, String firstName, String lastName, Address address, String email, String userName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.email = email;
+        this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "Person [address=" + address + ", email=" + email + ", firstName=" + firstName + ", id=" + id
+                + ", lastName=" + lastName + ", userName=" + userName + "]";
+    }
 }

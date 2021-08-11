@@ -1,33 +1,64 @@
 package com.example.airline_reservation.Web;
 
-import com.example.airline_reservation.Service.Implementation.AirlineServiceImpl;
+import com.example.airline_reservation.Model.Airline;
 import com.example.airline_reservation.Service.DTOs.AirlineDTO;
+import com.example.airline_reservation.Service.Implementation.AirlineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
-
+@RequestMapping(path = "/airlines")
 public class AirlineController {
 
+    private final AirlineServiceImpl airlineService;
+
     @Autowired
-    AirlineServiceImpl airlineService;
-
-    @GetMapping("/airlines")
-    public ResponseEntity<List<AirlineDTO>> getAirlines() {
-        List<AirlineDTO> airlines = airlineService.findAll();
-
-        return new ResponseEntity<List<AirlineDTO>>(airlines, HttpStatus.OK);
+    public AirlineController(AirlineServiceImpl airlineServiceImpl) {
+        this.airlineService = airlineServiceImpl;
     }
 
-    @PostMapping("/airlines")
-    public ResponseEntity<AirlineDTO> addAirline(@RequestBody AirlineDTO airlineDTO) {
-        AirlineDTO aline = airlineService.save(airlineDTO);
-
-        return new ResponseEntity<AirlineDTO>(aline, HttpStatus.OK);
+    @GetMapping("")
+    public ResponseEntity<?> getAirlines(@RequestParam Optional<Integer> page) {
+        return new ResponseEntity<>(airlineService.findAll(page), HttpStatus.OK);
     }
+
+    @GetMapping("/byid/{id}")
+    public ResponseEntity<?> getAirlinetById(@PathVariable int id) {
+        Airline airline = airlineService.findById(id);
+        return new ResponseEntity<>(airline, HttpStatus.OK);
+    }
+
+    @GetMapping("/bycode/{code}")
+    public ResponseEntity<?> getAirlinetByCode(@PathVariable String code) {
+
+        Airline airline = airlineService.findByCode(code);
+        return new ResponseEntity<>(airline, HttpStatus.OK);
+
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> addAirline(@Valid @RequestBody AirlineDTO airlineDTO) {
+        AirlineDTO airline = airlineService.save(airlineDTO);
+        return new ResponseEntity<>(airline, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@Valid @PathVariable("id") int id, @RequestBody AirlineDTO airlinetDTO) {
+
+        AirlineDTO airline = airlineService.Update(id, airlinetDTO);
+        return new ResponseEntity<>(airline, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAirline(@Valid @PathVariable int id) {
+        airlineService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 }

@@ -8,41 +8,44 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/airports")
 public class AirportController {
 
+    private final AirportServiceImpl airportService;
+
     @Autowired
-    private AirportServiceImpl airportService;
-
-    @GetMapping("")
-    public ResponseEntity<List<AirportDTO>> getAllAirport() {
-
-        List<AirportDTO> airport = airportService.getAllAirport();
-        return new ResponseEntity<List<AirportDTO>>(airport, HttpStatus.OK);
-
+    public AirportController(AirportServiceImpl airportService) {
+        this.airportService = airportService;
     }
 
-    @GetMapping("/{airportId}")
-    public ResponseEntity<Airport> getAirportById(@PathVariable int airportId) {
-        System.out.println("get method");
-        Airport airport = airportService.getAirportById(airportId);
+    @GetMapping("")
+    public ResponseEntity<?> getAllAirport() {
+        List<AirportDTO> airport = airportService.getAllAirport();
+        return new ResponseEntity<>(airport, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{airportCode}")
+    public ResponseEntity<?> getAirportByCode(@PathVariable("airportCode") String airportCode) {
+        Airport airport = airportService.getAirportByCode(airportCode);
         return new ResponseEntity<>(airport, HttpStatus.OK);
     }
 
     @PostMapping("")
-    public ResponseEntity<AirportDTO> addAirport(@RequestBody AirportDTO airportDTO) {
+    public ResponseEntity<?> addAirport(@Valid  @RequestBody AirportDTO airportDTO) {
         AirportDTO airport = airportService.save(airportDTO);
-        return new ResponseEntity<AirportDTO>(airport, HttpStatus.OK);
+        return new ResponseEntity<>(airport, HttpStatus.OK);
 
     }
 
     @PutMapping("/{airportId}")
-    public ResponseEntity<AirportDTO> update(
+    public ResponseEntity<?> update(
             @PathVariable("airportId") int airportId,
-            @RequestBody AirportDTO airportDTO
+            @Valid @RequestBody AirportDTO airportDTO
     ) {
         AirportDTO airport = airportService.Update(airportId, airportDTO);
         return new ResponseEntity<>(airport, HttpStatus.OK);
@@ -52,7 +55,6 @@ public class AirportController {
     @DeleteMapping("/{airportId}")
     public ResponseEntity<?> deleteAirport(@PathVariable int airportId) {
         airportService.deleteAirport(airportId);
-        // need to send message if airport not found
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
