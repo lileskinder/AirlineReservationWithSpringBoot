@@ -23,7 +23,7 @@ public abstract class Person {
     @Column(nullable = false, unique = true, updatable = false)
     protected String email;
 
-    @Column(name = "userName", nullable = false)
+    @Column(nullable = false, unique = true)
     protected String userName;
 
     public Person() {
