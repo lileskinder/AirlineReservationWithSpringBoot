@@ -36,8 +36,8 @@ public class PassengerController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<PersonDTO> getPassengerById(@PathVariable(name = "id") int id) {
-		return new ResponseEntity<PersonDTO>(service.getPassengerById(id), HttpStatus.OK);
+	public ResponseEntity<PassengerDTO> getPassengerById(@PathVariable(name = "id") int id) {
+		return new ResponseEntity<PassengerDTO>(service.getPassengerById(id), HttpStatus.OK);
 	}
 
 	@PostMapping

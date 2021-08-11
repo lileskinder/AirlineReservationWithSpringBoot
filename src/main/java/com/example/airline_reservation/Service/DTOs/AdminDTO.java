@@ -9,7 +9,8 @@ public class AdminDTO extends PersonDTO {
 	public AdminDTO() {
 	}
 
-	public AdminDTO(String firstName, String lastName, String email, Address address) {
-		super(firstName, lastName, email, address);
+	public AdminDTO(int id, String firstName, String lastName, String email, Address address, String userName) {
+		super(id, firstName, lastName, email, address, userName);
 	}
+
 }

@@ -1,9 +1,7 @@
 package com.example.airline_reservation.Service.DTOs.DTOAdapters;
 
 import com.example.airline_reservation.Model.Admin;
-import com.example.airline_reservation.Model.Person;
 import com.example.airline_reservation.Service.DTOs.AdminDTO;
-import com.example.airline_reservation.Service.DTOs.PassengerDTO;
 
 public class AdminDTOAdapter {
 
@@ -15,6 +13,8 @@ public class AdminDTOAdapter {
 			adminDTO.setLastName(admin.getLastName());
 			adminDTO.setEmail(admin.getEmail());
 			adminDTO.setAddress(admin.getAddress());
+
+			adminDTO.setUserName(admin.getUserName());
 		}
 		return adminDTO;
 	}
@@ -27,6 +27,8 @@ public class AdminDTOAdapter {
 			admin.setLastName(adminDTO.getLastName());
 			admin.setEmail(adminDTO.getEmail());
 			admin.setAddress(adminDTO.getAddress());
+
+			admin.setUserName(adminDTO.getUserName());
 		}
 		return admin;
 	}

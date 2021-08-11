@@ -5,25 +5,20 @@ import lombok.Data;
 
 @Data
 public class AgentDTO extends PersonDTO {
-    private int agentId;
+	private int agentId;
 
-    public AgentDTO() {
-    }
+	public AgentDTO() {
+	}
 
-    public AgentDTO(String firstName, String lastName, String email, Address address, int agentId) {
-        super(firstName, lastName, email, address);
-        this.agentId = agentId;
-    }
+	public AgentDTO(int id, String firstName, String lastName, String email, Address address, String userName,
+			int agentId) {
+		super(id, firstName, lastName, email, address, userName);
+		this.agentId = agentId;
+	}
 
 	@Override
 	public String toString() {
-		return "AgentDTO{" +
-				"agentId=" + agentId +
-				", id=" + id +
-				", firstName='" + firstName + '\'' +
-				", lastName='" + lastName + '\'' +
-				", email='" + email + '\'' +
-				", address=" + address +
-				'}';
+		return "Agent [address=" + address + ", email=" + email + ", firstName=" + firstName + ", id=" + id
+				+ ", lastName=" + lastName + ", userName=" + userName + ", agentId=" + agentId + "]";
 	}
 }
