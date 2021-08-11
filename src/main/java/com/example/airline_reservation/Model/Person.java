@@ -26,6 +26,10 @@ public abstract class Person {
     @Column(nullable = false, unique = true)
     protected String userName;
 
+    // @OneToMany(cascade = CascadeType.ALL)
+    // @JoinColumn
+    // protected List<Role> roles = new ArrayList<>();
+
     public Person() {
     }
 

@@ -1,6 +1,7 @@
 package com.example.airline_reservation.Service.DTOs.DTOAdapters;
 
 import com.example.airline_reservation.Model.Passenger;
+import com.example.airline_reservation.Model.Role;
 import com.example.airline_reservation.Service.DTOs.PassengerDTO;
 
 public class PassengerDTOAdapter {
@@ -21,7 +22,19 @@ public class PassengerDTOAdapter {
 		return passenger;
 	}
 
-	public static PassengerDTO getPassengerDTO(Passenger passenger) {
+	public static Role getRole(PassengerDTO passengerDTO) {
+		Role role = new Role();
+		if (passengerDTO != null) {
+			role.setId(passengerDTO.getRoleId());
+			role.setRole(passengerDTO.getRoleName());
+			role.setPassword(passengerDTO.getPassword());
+			role.setPersonId(passengerDTO.getId());
+		}
+
+		return role;
+	}
+
+	public static PassengerDTO getPassengerDTO(Passenger passenger, Role role) {
 		PassengerDTO passengerDTO = new PassengerDTO();
 
 		if (passenger != null) {
@@ -33,6 +46,11 @@ public class PassengerDTOAdapter {
 			passengerDTO.setDob(passenger.getDob());
 
 			passengerDTO.setUserName(passenger.getUserName());
+			if (role != null) {
+				passengerDTO.setRoleId(role.getId());
+				passengerDTO.setRoleName(role.getRole());
+				passengerDTO.setPassword(role.getPassword());
+			}
 		}
 		return passengerDTO;
 	}

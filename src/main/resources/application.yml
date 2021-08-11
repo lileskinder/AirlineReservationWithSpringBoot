@@ -6,9 +6,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/airliner
+    url: jdbc:mysql://localhost/airline
     username: root
-    password: 1234
+    password: server
   jpa:
     show-sql: true
     hibernate:
@@ -16,12 +16,6 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
       ddl-auto: update
-
-  security:
-    user:
-      name: nex
-      password: 123
-
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
