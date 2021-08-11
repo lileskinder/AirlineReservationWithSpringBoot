@@ -41,10 +41,12 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public AirportDTO Update(AirportDTO airportDTO) {
+
         return save(airportDTO);
     }
 
     public Airport getAirportByCode(String airportCode){
+
         return airportRepository.findByCode(airportCode);
     }
 

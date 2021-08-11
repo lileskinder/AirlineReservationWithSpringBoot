@@ -10,11 +10,17 @@ public abstract class Person {
     @Id
     @GeneratedValue
     protected int id;
-    @Column(name = "firstName", nullable = false)
+
+    @Column(nullable = false)
     protected String firstName;
-    @Column(name = "lastName", nullable = false)
+
+    @Column(nullable = false)
     protected String lastName;
+
+    @Column(nullable = false)
     protected Address address;
+
+    @Column(nullable = false, unique = true, updatable = false)
     protected String email;
 
     @Column(name = "userName", nullable = false)

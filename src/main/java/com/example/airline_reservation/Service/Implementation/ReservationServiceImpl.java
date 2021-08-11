@@ -10,13 +10,17 @@ import com.example.airline_reservation.Service.DTOs.ReservationDTO;
 import com.example.airline_reservation.Service.PassengerService;
 import com.example.airline_reservation.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ReservationServiceImpl implements ReservationService {
 
     private ReservationRepo reservationRepo;
@@ -64,11 +68,15 @@ public class ReservationServiceImpl implements ReservationService {
         );
     }
 
-    public List<ReservationDTO> getReservations() {
+    public List<ReservationDTO> getReservations(Optional<Integer> page) {
+        Pageable pagination = PageRequest.of(page.orElse(0), 10);
+
         List<ReservationDTO> reservationDTOList = new ArrayList<>();
-        for(Reservation reservation: reservationRepo.findAll()) {
+
+        for(Reservation reservation: reservationRepo.findAll(pagination)) {
             reservationDTOList.add(ReservationDTOAdapter.getReservationDTO(reservation));
         }
+
         return reservationDTOList;
     }
 

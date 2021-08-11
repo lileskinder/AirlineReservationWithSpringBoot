@@ -12,6 +12,8 @@ public interface FlightService {
 
     FlightDTO addFlight(FlightDTO flightDTO);
 
+    FlightDTO findByFlightId(Integer id);
+
     FlightDTO findByFlightNumber(Integer flightNumber);
 
     FlightDTO updateFlight(Integer flightNumber,

@@ -10,13 +10,14 @@ public class Ticket {
 
     @Id @GeneratedValue
     private int id;
-    // must be 20 digit
-    @Column(length = 20)
+
+    @Column(length = 20, nullable = false, updatable = false, unique = true)
     private int number;
 
     @OneToOne
+    @JoinColumn(nullable = false, updatable = false)
     private Person passenger;
 
-    @ManyToOne @JoinColumn
+    @ManyToOne @JoinColumn(nullable = false, updatable = false)
     private Flight flight;
 }

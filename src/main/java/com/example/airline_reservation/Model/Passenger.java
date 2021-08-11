@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 @Entity
 public class Passenger extends Person {
-    @Column(name = "dob", nullable = false)
+    @Column(nullable = false)
     private LocalDate dob;
 
     public Passenger() {

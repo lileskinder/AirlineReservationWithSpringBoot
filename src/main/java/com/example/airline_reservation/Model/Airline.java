@@ -2,18 +2,23 @@ package com.example.airline_reservation.Model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
+@SecondaryTable(name = "airline_history")
 public class Airline {
 	@Id
 	@GeneratedValue
 	private int id;
+
+	@Column(nullable = false, updatable = false, unique = true)
 	private String code;
+
+	@Column(nullable = false)
 	private String name;
+
+	@Column(table = "airline_history", length = 2000)
 	private String history;
 
 	public int getId() {

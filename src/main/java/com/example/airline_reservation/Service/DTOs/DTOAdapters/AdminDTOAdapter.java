@@ -21,7 +21,7 @@ public class AdminDTOAdapter {
 
 	public static Admin getAdmin(AdminDTO adminDTO) {
 		Admin admin = new Admin();
-		if (admin != null) {
+		if (adminDTO != null) {
 			admin.setId(adminDTO.getId());
 			admin.setFirstName(adminDTO.getFirstName());
 			admin.setLastName(adminDTO.getLastName());

@@ -8,7 +8,8 @@ import javax.persistence.Entity;
 @Data
 @Entity
 public class Agent extends Person {
-    @Column(name = "agentId", nullable = false)
+
+    @Column(nullable = false, updatable = false, unique = true)
     private int agentId;
 
     public Agent() {

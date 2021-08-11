@@ -12,6 +12,7 @@ public class TicketDTOAdapter {
 
     public static Ticket getTicket(TicketDTO ticketDTO,
                                    PassengerService passengerService, FlightRepo flightRepo) {
+
         TicketDTOAdapter ticketDTOAdapter = new TicketDTOAdapter();
         Ticket ticket = new Ticket();
 
