@@ -26,17 +26,12 @@ public class ReservationController {
     @GetMapping("")
     public ResponseEntity<?> getReservations(@RequestParam Optional<Integer> page) {
         List<ReservationDTO> reservationDTOList = reservationService.getReservations(page);
-
-        if (reservationDTOList != null) {
-            return new ResponseEntity<List<ReservationDTO>>(reservationDTOList, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.valueOf("Something went wrong!!!"));
-        }
+        return new ResponseEntity<>(reservationDTOList, HttpStatus.OK);
     }
 
     @GetMapping("/{code}")
     public ResponseEntity<?> getReservation(@PathVariable String code) {
-        return new ResponseEntity<ReservationDTO>(
+        return new ResponseEntity<>(
                 reservationService.getReservationByCode(code),
                 HttpStatus.OK
         );
@@ -44,7 +39,7 @@ public class ReservationController {
 
     @PostMapping("")
     public ResponseEntity<?> getReservations(@Valid  @RequestBody ReservationDTO reservationDTO) {
-        return new ResponseEntity<ReservationDTO>(
+        return new ResponseEntity<>(
                 reservationService.makeReservation(reservationDTO),
                 HttpStatus.OK
         );
@@ -54,7 +49,7 @@ public class ReservationController {
     public ResponseEntity<?> updateReservation(
             @PathVariable String code,
             @Valid @RequestBody ReservationDTO reservationDTO) {
-        return new ResponseEntity<ReservationDTO>(
+        return new ResponseEntity<>(
                 reservationService.updateReservation(code, reservationDTO),
                 HttpStatus.OK
         );
@@ -64,7 +59,7 @@ public class ReservationController {
     public ResponseEntity<?> confirmReservation(
             @PathVariable String code,
             @Valid @RequestBody ReservationDTO reservationDTO) {
-        return new ResponseEntity<ReservationDTO>(
+        return new ResponseEntity<>(
                 reservationService.confirmReservation(code, reservationDTO),
                 HttpStatus.OK
         );
@@ -74,7 +69,7 @@ public class ReservationController {
     public ResponseEntity<?> cancelReservation(
             @PathVariable String code,
             @Valid @RequestBody ReservationDTO reservationDTO) {
-        return new ResponseEntity<ReservationDTO>(
+        return new ResponseEntity<>(
                 reservationService.cancelReservation(code, reservationDTO),
                 HttpStatus.OK
         );
