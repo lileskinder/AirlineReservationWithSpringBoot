@@ -28,7 +28,6 @@ public class FlightController {
     @PostMapping("")
     public ResponseEntity<FlightDTO> addFlight(@RequestBody FlightDTO flightDTO) {
         return ResponseEntity.ok(flightService.addFlight(flightDTO));
-//        return new ResponseEntity<>(flightService.addFlight(flightDTO), HttpStatus.OK);
     }
 
 
