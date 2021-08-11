@@ -15,6 +15,7 @@ public class AgentDTOAdapter {
 			agentDTO.setAddress(agent.getAddress());
 
 			agentDTO.setAgentId(agent.getAgentId());
+			agentDTO.setUserName(agent.getUserName());
 		}
 		return agentDTO;
 	}
@@ -28,6 +29,8 @@ public class AgentDTOAdapter {
 			agent.setEmail(agentDTO.getEmail());
 			agent.setAddress(agentDTO.getAddress());
 			agent.setAgentId(agentDTO.getAgentId());
+
+			agent.setUserName(agentDTO.getUserName());
 		}
 		return agent;
 	}

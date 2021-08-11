@@ -17,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PassengerServiceImpl implements PassengerService {
 
-    private final PassengerRepo passengerRepo;
+	private final PassengerRepo passengerRepo;
 
-    @Autowired
+	@Autowired
 	public PassengerServiceImpl(PassengerRepo passengerRepo) {
 		this.passengerRepo = passengerRepo;
 	}
@@ -63,6 +63,5 @@ public class PassengerServiceImpl implements PassengerService {
 
 		return PassengerDTOList;
 	}
-
 
 }

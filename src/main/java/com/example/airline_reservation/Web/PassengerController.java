@@ -51,6 +51,7 @@ public class PassengerController {
 	}
 
 	@DeleteMapping("/{id}")
+
 	public ResponseEntity<?> deletePassengerById(@PathVariable(name = "id") int id) {
 		service.deletePassenger(id);
 		return new ResponseEntity<>(HttpStatus.OK);

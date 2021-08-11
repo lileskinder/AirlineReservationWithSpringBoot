@@ -1,14 +1,7 @@
 package com.example.airline_reservation.Model;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
-import java.util.Objects;
 
 @Data
 @Entity
@@ -30,36 +23,24 @@ public abstract class Person {
     @Column(nullable = false, unique = true, updatable = false)
     protected String email;
 
-    public Person() {}
+    @Column(name = "userName", nullable = false)
+    protected String userName;
 
-    public Person(String firstName, String lastName, Address address, String email) {
+    public Person() {
+    }
+
+    public Person(int id, String firstName, String lastName, Address address, String email, String userName) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.email = email;
+        this.userName = userName;
     }
 
     @Override
     public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address=" + address +
-                ", email='" + email + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Person)) return false;
-        Person person = (Person) o;
-        return id == person.id && firstName.equals(person.firstName) && lastName.equals(person.lastName) && address.equals(person.address) && email.equals(person.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, email);
+        return "Person [address=" + address + ", email=" + email + ", firstName=" + firstName + ", id=" + id
+                + ", lastName=" + lastName + ", userName=" + userName + "]";
     }
 }

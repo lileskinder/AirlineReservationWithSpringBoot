@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
-@Repository @Transactional
+@Repository
+@Transactional
 public interface AgentRepo extends JpaRepository<Agent, Integer> {
 }

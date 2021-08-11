@@ -2,10 +2,7 @@ package com.example.airline_reservation.Service.DTOs;
 
 import java.time.LocalDate;
 
-import javax.persistence.*;
-
 import com.example.airline_reservation.Model.Address;
-import com.example.airline_reservation.Model.Person;
 import lombok.Data;
 
 @Data
@@ -15,20 +12,15 @@ public class PassengerDTO extends PersonDTO {
 	public PassengerDTO() {
 	}
 
-	public PassengerDTO(String firstName, String lastName, String email, Address address, LocalDate dob) {
-		super(firstName, lastName, email, address);
+	public PassengerDTO(int id, String firstName, String lastName, String email, Address address, String userName,
+			LocalDate dob) {
+		super(id, firstName, lastName, email, address, userName);
 		this.dob = dob;
 	}
 
 	@Override
 	public String toString() {
-		return "PassengerDTO{" +
-				"dob=" + dob +
-				", id=" + id +
-				", firstName='" + firstName + '\'' +
-				", lastName='" + lastName + '\'' +
-				", email='" + email + '\'' +
-				", address=" + address +
-				'}';
+		return "Passenger [address=" + address + ", email=" + email + ", firstName=" + firstName + ", id=" + id
+				+ ", lastName=" + lastName + ", userName=" + userName + ", dob=" + dob + "]";
 	}
 }

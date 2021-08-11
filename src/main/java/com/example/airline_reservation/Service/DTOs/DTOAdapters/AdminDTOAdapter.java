@@ -13,6 +13,8 @@ public class AdminDTOAdapter {
 			adminDTO.setLastName(admin.getLastName());
 			adminDTO.setEmail(admin.getEmail());
 			adminDTO.setAddress(admin.getAddress());
+
+			adminDTO.setUserName(admin.getUserName());
 		}
 		return adminDTO;
 	}
@@ -25,6 +27,8 @@ public class AdminDTOAdapter {
 			admin.setLastName(adminDTO.getLastName());
 			admin.setEmail(adminDTO.getEmail());
 			admin.setAddress(adminDTO.getAddress());
+
+			admin.setUserName(adminDTO.getUserName());
 		}
 		return admin;
 	}

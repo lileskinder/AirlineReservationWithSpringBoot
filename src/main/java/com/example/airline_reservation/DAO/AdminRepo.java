@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
-@Repository @Transactional
+@Repository
+@Transactional
 public interface AdminRepo extends JpaRepository<Admin, Integer> {
 }

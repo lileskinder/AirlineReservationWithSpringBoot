@@ -5,7 +5,6 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Data
 @Entity
@@ -13,36 +12,19 @@ public class Passenger extends Person {
     @Column(nullable = false)
     private LocalDate dob;
 
-    public Passenger() {}
+    public Passenger() {
+    }
 
-    public Passenger(String firstName, String lastName, Address address, String email, LocalDate dob) {
-        super(firstName, lastName, address, email);
+    public Passenger(int id, String firstName, String lastName, Address address, String email, String userName,
+            LocalDate dob) {
+        super(id, firstName, lastName, address, email, userName);
         this.dob = dob;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Passenger)) return false;
-        if (!super.equals(o)) return false;
-        Passenger passenger = (Passenger) o;
-        return dob.equals(passenger.dob);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), dob);
-    }
-
-    @Override
     public String toString() {
-        return "Passenger{" +
-                "dob=" + dob +
-                ", id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address=" + address +
-                ", email='" + email + '\'' +
-                '}';
+        return "Passenger [address=" + address + ", email=" + email + ", firstName=" + firstName + ", id=" + id
+                + ", lastName=" + lastName + ", userName=" + userName + ", dob=" + dob + "]";
     }
+
 }
