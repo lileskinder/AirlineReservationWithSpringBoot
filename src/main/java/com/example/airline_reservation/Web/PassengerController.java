@@ -34,7 +34,7 @@ public class PassengerController {
 	@GetMapping
 	public ResponseEntity<?> getPassengers() {
 		List<PassengerDTO> passengers = service.getPassengers();
-		return new ResponseEntity<List<PassengerDTO>>(passengers, HttpStatus.OK);
+		return new ResponseEntity<>(passengers, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
@@ -45,24 +45,24 @@ public class PassengerController {
 	@PostMapping
 	public ResponseEntity<?> addPassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
 		System.out.println(passengerDTO);
-		return new ResponseEntity<PassengerDTO>(service.addPassenger(passengerDTO), HttpStatus.OK);
+		return new ResponseEntity<>(service.addPassenger(passengerDTO), HttpStatus.OK);
 	}
 
 	@PutMapping
 	public ResponseEntity<?> updatePassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
-		return new ResponseEntity<PassengerDTO>(service.updatePassenger(passengerDTO), HttpStatus.OK);
+		return new ResponseEntity<>(service.updatePassenger(passengerDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping
 	public ResponseEntity<?> deletePassenger(@Valid @RequestBody PersonDTO personDTO) {
 		service.deletePassenger(personDTO.getId());
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletePassengerById(@PathVariable(name = "id") int id) {
 		service.deletePassenger(id);
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }
