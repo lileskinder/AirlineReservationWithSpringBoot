@@ -16,6 +16,12 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
       ddl-auto: update
+
+  security:
+    user:
+      name: nex
+      password: 123
+
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
