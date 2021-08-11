@@ -5,24 +5,30 @@ import lombok.Data;
 
 @Data
 public class PersonDTO {
-	private int id;
-	private String firstName;
-	private String lastName;
-	private String email;
+    protected int id;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
 
-	private Address address;
+    protected Address address;
 
-	public PersonDTO() {
-	}
+    public PersonDTO() {}
 
-	public PersonDTO(String firstName, String lastName, String email, Address address) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.address = address;
-	}
+    public PersonDTO(String firstName, String lastName, String email, Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+    }
 
+	@Override
 	public String toString() {
-		return firstName + " " + lastName + " : " + email + " : " + address;
+		return "PersonDTO{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", address=" + address +
+				'}';
 	}
 }

@@ -20,7 +20,15 @@ public class PassengerDTO extends PersonDTO {
 		this.dob = dob;
 	}
 
+	@Override
 	public String toString() {
-		return super.toString() + dob.toString();
+		return "PassengerDTO{" +
+				"dob=" + dob +
+				", id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", address=" + address +
+				'}';
 	}
 }

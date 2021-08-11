@@ -1,5 +1,8 @@
 package com.example.airline_reservation.Service.Implementation;
 
+import com.example.airline_reservation.DAO.AgentRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +22,12 @@ import com.example.airline_reservation.Service.DTOs.DTOAdapters.AgentDTOAdapter;
 @Transactional
 public class AgentServiceImpl implements AgentService {
 
+	private final AgentRepo repo;
+
 	@Autowired
-	AgentRepo repo;
+	public AgentServiceImpl(AgentRepo repo) {
+		this.repo = repo;
+	}
 
 	@Override
 	public AgentDTO addAgent(AgentDTO AgentDTO) {
@@ -69,4 +76,5 @@ public class AgentServiceImpl implements AgentService {
 			return true;
 		}
 	}
+
 }

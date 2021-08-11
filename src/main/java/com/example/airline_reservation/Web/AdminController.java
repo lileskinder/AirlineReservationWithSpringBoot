@@ -21,8 +21,11 @@ import com.example.airline_reservation.Service.DTOs.AdminDTO;
 @RequestMapping("/admins")
 public class AdminController {
 
-	@Autowired
-	AdminService service;
+	private final AdminService service;
+
+	public AdminController(AdminService service) {
+		this.service = service;
+	}
 
 	@GetMapping
 	public ResponseEntity<List<AdminDTO>> getAdmins() {

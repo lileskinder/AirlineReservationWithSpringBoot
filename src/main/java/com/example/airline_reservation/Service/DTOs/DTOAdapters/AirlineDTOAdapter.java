@@ -3,6 +3,7 @@ package com.example.airline_reservation.Service.DTOs.DTOAdapters;
 import com.example.airline_reservation.Model.Airline;
 import com.example.airline_reservation.Service.DTOs.AirlineDTO;
 
+
 public class AirlineDTOAdapter {
     public static Airline getAirline(AirlineDTO airlineDTO) {
         Airline airline = new Airline();

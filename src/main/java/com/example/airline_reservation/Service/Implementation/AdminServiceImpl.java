@@ -1,13 +1,15 @@
 package com.example.airline_reservation.Service.Implementation;
 
+
+import com.example.airline_reservation.DAO.AdminRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.airline_reservation.DAO.AdminRepo;
 import com.example.airline_reservation.Model.Admin;
 import com.example.airline_reservation.Service.AdminService;
 import com.example.airline_reservation.Service.DTOs.AdminDTO;
@@ -17,14 +19,17 @@ import com.example.airline_reservation.Service.DTOs.DTOAdapters.AdminDTOAdapter;
 @Transactional
 public class AdminServiceImpl implements AdminService {
 
+	private final AdminRepo repo;
+
 	@Autowired
-	AdminRepo repo;
+	public AdminServiceImpl(AdminRepo repo) {
+		this.repo = repo;
+	}
 
 	@Override
 	public AdminDTO addAdmin(AdminDTO adminDTO) {
 		Admin admin = AdminDTOAdapter.getAdmin(adminDTO);
 		return AdminDTOAdapter.getAdminDTO(repo.save(admin));
-
 	}
 
 	@Override

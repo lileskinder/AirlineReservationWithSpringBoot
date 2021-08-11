@@ -1,5 +1,9 @@
 package com.example.airline_reservation.Service.DTOs.DTOAdapters;
 
+import com.example.airline_reservation.Model.Admin;
+import com.example.airline_reservation.Model.Agent;
+import com.example.airline_reservation.Model.Passenger;
+import com.example.airline_reservation.Model.Person;
 import com.example.airline_reservation.Model.Passenger;
 import com.example.airline_reservation.Service.DTOs.PassengerDTO;
 
@@ -15,11 +19,13 @@ public class PassengerDTOAdapter {
 			passenger.setAddress(passengerDTO.getAddress());
 			passenger.setDob(passengerDTO.getDob());
 		}
+
 		return passenger;
 	}
 
 	public static PassengerDTO getPassengerDTO(Passenger passenger) {
 		PassengerDTO passengerDTO = new PassengerDTO();
+
 		if (passenger != null) {
 			passengerDTO.setId(passenger.getId());
 			passengerDTO.setFirstName(passenger.getFirstName());
@@ -30,5 +36,4 @@ public class PassengerDTOAdapter {
 		}
 		return passengerDTO;
 	}
-
 }

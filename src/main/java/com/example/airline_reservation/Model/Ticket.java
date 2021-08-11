@@ -11,8 +11,8 @@ public class Ticket {
     @Id @GeneratedValue
     private int id;
     // must be 20 digit
+    @Column(length = 20)
     private int number;
-    private String reservationCode;
 
     @OneToOne
     private Person passenger;

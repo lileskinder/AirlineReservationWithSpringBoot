@@ -1,7 +1,9 @@
 package com.example.airline_reservation.Service.DTOs.DTOAdapters;
 
 import com.example.airline_reservation.Model.Admin;
+import com.example.airline_reservation.Model.Person;
 import com.example.airline_reservation.Service.DTOs.AdminDTO;
+import com.example.airline_reservation.Service.DTOs.PassengerDTO;
 
 public class AdminDTOAdapter {
 

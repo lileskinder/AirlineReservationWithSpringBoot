@@ -48,4 +48,15 @@ public class Airline {
 		this.history = history;
 	}
 
+    public Airline() {
+    }
+
+    public Airline(int id, String code, String name, String history) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.history = history;
+    }
+
+
 }

@@ -1,18 +1,18 @@
 package com.example.airline_reservation.Service;
 
-import java.util.List;
-
 import com.example.airline_reservation.Service.DTOs.AdminDTO;
+
+import java.util.List;
 
 public interface AdminService {
 
-	public AdminDTO addAdmin(AdminDTO Admin);
+    public AdminDTO addAdmin(AdminDTO Admin);
 
-	public AdminDTO updateAdmin(AdminDTO AdminDTO);
+    public AdminDTO updateAdmin(AdminDTO AdminDTO);
 
-	public void deleteAdmin(int AdminId);
+    public void deleteAdmin(int AdminId);
 
-	public List<AdminDTO> getAdmins();
+    public List<AdminDTO> getAdmins();
 
-	public AdminDTO getAdminById(int AdminId);
+    public AdminDTO getAdminById(int AdminId);
 }
