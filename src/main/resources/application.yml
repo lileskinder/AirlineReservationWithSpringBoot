@@ -6,7 +6,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/WgFl1Mg6bW
+    url: jdbc:mysql://remotemysql.com/WgFl1Mg6bW
     username: WgFl1Mg6bW
     password: a4b160Mijy
   jpa:
