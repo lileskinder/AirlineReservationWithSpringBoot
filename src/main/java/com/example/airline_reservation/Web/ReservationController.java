@@ -1,7 +1,13 @@
 package com.example.airline_reservation.Web;
 
+import com.example.airline_reservation.ExceptionHandling.MyCustomException;
+import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
+import com.example.airline_reservation.Model.Ticket;
+import com.example.airline_reservation.Service.DTOs.DTOAdapters.TicketDTOAdapter;
 import com.example.airline_reservation.Service.DTOs.ReservationDTO;
+import com.example.airline_reservation.Service.DTOs.TicketDTO;
 import com.example.airline_reservation.Service.ReservationService;
+import com.example.airline_reservation.Service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +24,14 @@ import java.util.Optional;
 public class ReservationController {
 
     private ReservationService reservationService;
+    private TicketService ticketService;
 
     @Autowired
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(ReservationService reservationService,
+                                 TicketService ticketService) {
         this.reservationService = reservationService;
+        this.ticketService = ticketService;
     }
-
-    //    TODO: getReservations for passanger and agent only
 
     @GetMapping("")
     @PreAuthorize("hasAnyRole('ADMIN')")
@@ -32,8 +39,6 @@ public class ReservationController {
         List<ReservationDTO> reservationDTOList = reservationService.getReservations(page);
         return new ResponseEntity<>(reservationDTOList, HttpStatus.OK);
     }
-
-    //    TODO: getReservation for passanger and agent only
 
     @GetMapping("/my")
     @PreAuthorize("hasAnyRole('PASSENGER')")
@@ -45,8 +50,6 @@ public class ReservationController {
         );
     }
 
-    //    TODO: getReservation for passanger and agent only
-
     @GetMapping("/{code}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> getReservation(@PathVariable String code, Authentication authentication) {
@@ -57,18 +60,24 @@ public class ReservationController {
         );
     }
 
-    //    TODO: getReservation for passanger and agent only
-
     @PostMapping("")
     @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<?> postReservations(@Valid  @RequestBody ReservationDTO reservationDTO) {
+
+        List<TicketDTO> tickets = reservationService.getReservationTickets(reservationDTO);
+        tickets = reservationService.getReservationTicketsAvailability(reservationDTO);
+
+        if(tickets.size() == 0) {
+            throw new ResourceNotFoundException("Ticket(s) not available for this reservation!!!");
+        } else {
+            reservationDTO.setTickets(tickets);
+        }
+
         return new ResponseEntity<>(
                 reservationService.makeReservation(reservationDTO),
                 HttpStatus.OK
         );
     }
-
-    //    TODO: updateReservation for passanger and agent only
 
     @PutMapping("/{code}")
     @PreAuthorize("hasAnyRole('ADMIN')")
@@ -81,8 +90,6 @@ public class ReservationController {
         );
     }
 
-    //    TODO: confirmReservation for passanger and agent only
-
     @PutMapping("/confirm/{code}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> confirmReservation(
@@ -93,8 +100,6 @@ public class ReservationController {
                 HttpStatus.OK
         );
     }
-
-    //    TODO: cancelReservation for passanger and agent only
 
     @PutMapping("/cancel/{code}")
     @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")

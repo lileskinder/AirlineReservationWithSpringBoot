@@ -2,6 +2,7 @@ package com.example.airline_reservation.Service.Implementation;
 
 import com.example.airline_reservation.DAO.FlightRepo;
 import com.example.airline_reservation.DAO.TicketRepo;
+import com.example.airline_reservation.Model.Flight;
 import com.example.airline_reservation.Model.Ticket;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.PassengerTicketDTOAdapter;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.TicketDTOAdapter;
@@ -58,4 +59,16 @@ public class TicketServiceImpl implements TicketService {
     public PassengerTicketDTO getPassengerTicketDetails(int id) {
         return PassengerTicketDTOAdapter.getPassengerTicketDTO(ticketRepo.getById(id));
     }
+
+    @Override
+    public List<TicketDTO> getFlightsFromTicket(int id) {
+        List<TicketDTO> ticketDTOList = new ArrayList<>();
+
+        for (Ticket ticket: ticketRepo.getListOfTickets(id)) {
+            ticketDTOList.add(TicketDTOAdapter.getTicketDTO(ticket));
+        }
+
+        return ticketDTOList;
+    }
+
 }
