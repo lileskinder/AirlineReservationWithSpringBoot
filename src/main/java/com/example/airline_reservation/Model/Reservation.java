@@ -11,13 +11,19 @@ import java.util.List;
 public class Reservation {
     @Id @GeneratedValue
     private int id;
+
+    @Column(nullable = false, updatable = false, unique = true, length = 6)
     private String code;
 
     @OneToOne
-    private Person passenger;
+    @JoinColumn(nullable = false, updatable = false)
+    private Person customer;
 
-    @OneToMany @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="reservation_id", nullable = false)
     private List<Ticket> tickets = new ArrayList<>();
-    private String status;
+
+    @Column(nullable = false)
+    private ReservationStatus status;
 
 }

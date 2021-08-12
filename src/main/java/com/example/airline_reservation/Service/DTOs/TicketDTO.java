@@ -1,19 +1,30 @@
 package com.example.airline_reservation.Service.DTOs;
 
-import com.example.airline_reservation.Model.Flight;
-import com.example.airline_reservation.Model.Person;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
+
+import java.math.BigInteger;
 
 @Data
 public class TicketDTO {
-    private int number;
-    private String reservationCode;
+    private BigInteger number;
 
     @EqualsAndHashCode.Exclude
     private int passengerId;
 
     @EqualsAndHashCode.Exclude
     private int flightId;
+
+    @EqualsAndHashCode.Exclude
+    private String reservationCode;
+
+    public TicketDTO() {
+    }
+
+    public TicketDTO(BigInteger number, int passengerId, int flightId, String reservationCode) {
+        this.number = number;
+        this.passengerId = passengerId;
+        this.flightId = flightId;
+        this.reservationCode = reservationCode;
+    }
 }

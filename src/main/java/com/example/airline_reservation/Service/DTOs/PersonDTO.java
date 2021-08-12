@@ -3,16 +3,23 @@ package com.example.airline_reservation.Service.DTOs;
 import com.example.airline_reservation.Model.Address;
 import lombok.Data;
 
-import javax.persistence.Embedded;
+import javax.persistence.Column;
 
 @Data
 public class PersonDTO {
-    private String firstName;
-    private String lastName;
-    private String email;
+    protected int id;
 
-    @Embedded
-    private Address address;
+    @Column(nullable = false)
+    protected String firstName;
+
+    @Column(nullable = false)
+    protected String lastName;
+
+    @Column(nullable = false)
+    protected Address address;
+
+    @Column(nullable = false, unique = true, updatable = false)
+    protected String email;
 
     public PersonDTO() {}
 
@@ -23,7 +30,14 @@ public class PersonDTO {
         this.address = address;
     }
 
-
-
-
+	@Override
+	public String toString() {
+		return "PersonDTO{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", address=" + address +
+				'}';
+	}
 }

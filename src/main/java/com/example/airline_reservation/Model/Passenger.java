@@ -1,16 +1,16 @@
 package com.example.airline_reservation.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.persistence.DiscriminatorValue;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Data
 @Entity
-//@DiscriminatorValue("Passenger")
 public class Passenger extends Person {
+    @Column(nullable = false)
     private LocalDate dob;
 
     public Passenger() {}
@@ -20,9 +20,29 @@ public class Passenger extends Person {
         this.dob = dob;
     }
 
-//    @JsonIgnore
-//    @Override
-//    public String getType() {
-//        return "Passenger";
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Passenger)) return false;
+        if (!super.equals(o)) return false;
+        Passenger passenger = (Passenger) o;
+        return dob.equals(passenger.dob);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), dob);
+    }
+
+    @Override
+    public String toString() {
+        return "Passenger{" +
+                "dob=" + dob +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address=" + address +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

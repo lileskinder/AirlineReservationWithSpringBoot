@@ -3,14 +3,15 @@ package com.example.airline_reservation.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-
 @Data
 @Entity
-//@DiscriminatorValue("Agent")
 public class Agent extends Person {
+
+    @Column(nullable = false, updatable = false, unique = true)
     private int agentId;
 
     public Agent() {}
@@ -20,9 +21,15 @@ public class Agent extends Person {
         this.agentId = agentId;
     }
 
-//    @JsonIgnore
-//    @Override
-//    public String getType() {
-//        return "Agent";
-//    }
+    @Override
+    public String toString() {
+        return "Agent{" +
+                "agentId=" + agentId +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address=" + address +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

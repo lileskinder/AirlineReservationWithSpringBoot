@@ -1,5 +1,7 @@
 server:
-  port: 8015
+  port: 8016
+  error:
+    include-message: always
 
 spring:
   datasource:
@@ -16,6 +18,5 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-#        format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
 

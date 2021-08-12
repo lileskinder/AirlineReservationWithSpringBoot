@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.DiscriminatorValue;
+import lombok.Data;
 import javax.persistence.Entity;
 
 @Data
 @Entity
-//@DiscriminatorValue("Admin")
 public class Admin extends Person {
     public Admin() { }
 
@@ -16,9 +16,14 @@ public class Admin extends Person {
         super(firstName, lastName, address, email);
     }
 
-//    @JsonIgnore
-//    @Override
-//    public String getType() {
-//        return "Admin";
-//    }
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address=" + address +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
