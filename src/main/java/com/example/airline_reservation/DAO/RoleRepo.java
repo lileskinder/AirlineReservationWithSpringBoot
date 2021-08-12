@@ -10,10 +10,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoleRepo extends JpaRepository<Role, Integer> {
-
-    @Query("select r from Role r where r.personId = :personId and r.role = :roleName")
-    Role findTopByPersonRoleName(@Param("personId") Integer personId, @Param("roleName") String roleName);
-
-    @Query("select r from Role r where r.personId = :personId")
-    List<Role> findByPerson(@Param("personId") Integer personId);
+    /*
+     * @Query("select r from Role r where r.personId = :personId and r.role = :roleName"
+     * ) Role findTopByPersonRoleName(@Param("personId") Integer
+     * personId, @Param("roleName") String roleName);
+     * 
+     * @Query("select r from Role r where r.personId = :personId") List<Role>
+     * findByPerson(@Param("personId") Integer personId);
+     */
 }

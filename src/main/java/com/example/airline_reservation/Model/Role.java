@@ -1,11 +1,13 @@
 package com.example.airline_reservation.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 import lombok.Data;
 
@@ -17,16 +19,16 @@ public class Role {
     protected int id;
     @Column(name = "role", nullable = false)
     protected String role;
+    @Column(name = "userName", nullable = false)
+    protected String userName;
     @Column(name = "password", nullable = false)
     protected String password;
 
-    protected int personId;
-
-    public Role(int id, String role, String password, int personId) {
+    public Role(int id, String role, String userName, String password) {
         this.id = id;
         this.role = role;
+        this.userName = userName;
         this.password = password;
-        this.personId = personId;
     }
 
     public Role() {
@@ -34,6 +36,6 @@ public class Role {
 
     @Override
     public String toString() {
-        return "Role [id=" + id + ", role=" + role + ", password=*****, personId=" + personId + "]";
+        return "Role [id=" + id + ", role=" + role + ", username=" + userName + "]";
     }
 }

@@ -1,8 +1,11 @@
 package com.example.airline_reservation.Service.DTOs.DTOAdapters;
 
+import com.example.airline_reservation.Model.Person;
 import com.example.airline_reservation.Model.Role;
+import com.example.airline_reservation.Service.DTOs.PersonDTO;
 import com.example.airline_reservation.Service.DTOs.RoleDTO;
 
+import org.springframework.security.access.method.P;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class RoleDTOAdapter {
@@ -12,8 +15,8 @@ public class RoleDTOAdapter {
         if (roleDTO != null) {
             role.setId(roleDTO.getId());
             role.setRole(roleDTO.getRole());
+            role.setUserName(roleDTO.getUserName());
             role.setPassword(hash(roleDTO.getPassword()));
-            role.setPersonId(roleDTO.getPersonId());
         }
 
         return role;
@@ -25,8 +28,8 @@ public class RoleDTOAdapter {
         if (role != null) {
             roleDTO.setId(role.getId());
             roleDTO.setRole(role.getRole());
+            roleDTO.setUserName(role.getUserName());
             roleDTO.setPassword(role.getPassword());
-            roleDTO.setPersonId(role.getPersonId());
         }
         return roleDTO;
     }
