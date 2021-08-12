@@ -49,12 +49,12 @@ public class RoleController {
     @DeleteMapping
     public ResponseEntity<RoleDTO> deleteRole(@RequestBody RoleDTO RoleDTO) {
         service.deleteRole(RoleDTO.getId());
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<RoleDTO> deleteRoleById(@PathVariable(name = "id") int id) {
         service.deleteRole(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
