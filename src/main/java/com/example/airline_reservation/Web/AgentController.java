@@ -40,7 +40,7 @@ public class AgentController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT')")
     public ResponseEntity<?> updateAgent(@Valid @RequestBody AgentDTO AgentDTO) {
         return new ResponseEntity<>(service.updateAgent(AgentDTO), HttpStatus.OK);
     }

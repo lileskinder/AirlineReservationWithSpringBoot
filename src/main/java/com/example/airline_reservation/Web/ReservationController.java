@@ -64,8 +64,7 @@ public class ReservationController {
     @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<?> postReservations(@Valid  @RequestBody ReservationDTO reservationDTO) {
 
-        List<TicketDTO> tickets = reservationService.getReservationTickets(reservationDTO);
-        tickets = reservationService.getReservationTicketsAvailability(reservationDTO);
+        List<TicketDTO> tickets = reservationService.getReservationTicketsAvailability(reservationDTO);
 
         if(tickets.size() == 0) {
             throw new ResourceNotFoundException("Ticket(s) not available for this reservation!!!");
@@ -80,7 +79,7 @@ public class ReservationController {
     }
 
     @PutMapping("/{code}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<?> updateReservation(
             @PathVariable String code,
             @Valid @RequestBody ReservationDTO reservationDTO) {
@@ -91,7 +90,7 @@ public class ReservationController {
     }
 
     @PutMapping("/confirm/{code}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<?> confirmReservation(
             @PathVariable String code,
             @Valid @RequestBody ReservationDTO reservationDTO) {

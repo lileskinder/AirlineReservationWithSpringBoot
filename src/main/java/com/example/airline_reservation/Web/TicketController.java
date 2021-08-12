@@ -20,10 +20,8 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    //    TODO: confirmReservation for passanger and agent only
-
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<?> getTicket(@PathVariable int id) {
         return new ResponseEntity<>(ticketService.getPassengerTicketDetails(id), HttpStatus.OK);
     }

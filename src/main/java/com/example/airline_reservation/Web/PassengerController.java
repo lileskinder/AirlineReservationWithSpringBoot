@@ -37,32 +37,21 @@ public class PassengerController {
 	}
 
 	@PostMapping
-//	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
 	public ResponseEntity<?> addPassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
 		return new ResponseEntity<>(service.addPassenger(passengerDTO), HttpStatus.OK);
 	}
 
-	//    TODO: Update passanger for passanger and agent only
 
 	@PutMapping
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
 	public ResponseEntity<?> updatePassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
 		return new ResponseEntity<>(service.updatePassenger(passengerDTO), HttpStatus.OK);
 	}
 
-	//    TODO: delete passanger for passanger and agent only
-//
-//	@DeleteMapping
-//	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT')")
-//	public ResponseEntity<?> deletePassenger(@Valid @RequestBody PersonDTO personDTO) {
-//		service.deletePassenger(personDTO.getId());
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
-
-	//    TODO: Update passanger for passanger and agent only
 
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
 	public ResponseEntity<?> deletePassengerById(@PathVariable(name = "id") int id) {
 		service.deletePassenger(id);
 		return new ResponseEntity<>(HttpStatus.OK);

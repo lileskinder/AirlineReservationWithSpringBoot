@@ -71,7 +71,7 @@ public class AirlineController {
     }
 
     @GetMapping("/airport/{code}")
-//    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<?> getAirlineFromAirport(@PathVariable String code) {
         List<AirlineDTO> airlineList = new ArrayList<>();
 
