@@ -21,22 +21,14 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepo repo;
 
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public RoleServiceImpl(RoleRepo repo) {
         this.repo = repo;
     }
 
-//    @Autowired
-//    public RoleServiceImpl(RoleRepo repo, BCryptPasswordEncoder bCryptPasswordEncoder) {
-//        this.repo = repo;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-//    }
-
     @Override
     public RoleDTO addRole(RoleDTO roleDTO) {
-//        roleDTO.setPassword(bCryptPasswordEncoder.encode(roleDTO.getPassword()));
         Role role = RoleDTOAdapter.getRole(roleDTO);
         return RoleDTOAdapter.getRoleDTO(repo.save(role));
     }
