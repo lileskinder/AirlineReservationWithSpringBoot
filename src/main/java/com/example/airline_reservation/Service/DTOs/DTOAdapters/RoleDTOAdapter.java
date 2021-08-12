@@ -1,11 +1,8 @@
 package com.example.airline_reservation.Service.DTOs.DTOAdapters;
 
-import com.example.airline_reservation.Model.Person;
 import com.example.airline_reservation.Model.Role;
-import com.example.airline_reservation.Service.DTOs.PersonDTO;
 import com.example.airline_reservation.Service.DTOs.RoleDTO;
 
-import org.springframework.security.access.method.P;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class RoleDTOAdapter {
@@ -35,6 +32,6 @@ public class RoleDTOAdapter {
     }
 
     public static String hash(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt(11));
+        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 }
