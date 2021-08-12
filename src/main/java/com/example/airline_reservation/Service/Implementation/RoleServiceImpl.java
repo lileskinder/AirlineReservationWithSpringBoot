@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,13 +21,17 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepo repo;
 
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
-    public RoleServiceImpl(RoleRepo repo) {
+    public RoleServiceImpl(RoleRepo repo, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.repo = repo;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
     public RoleDTO addRole(RoleDTO roleDTO) {
+        roleDTO.setPassword(bCryptPasswordEncoder.encode(roleDTO.getPassword()));
         Role role = RoleDTOAdapter.getRole(roleDTO);
         return RoleDTOAdapter.getRoleDTO(repo.save(role));
     }
@@ -63,4 +68,5 @@ public class RoleServiceImpl implements RoleService {
                 .orElseThrow(() -> new IllegalStateException("Role with id " + roleId + " does not exists"));
         return RoleDTOAdapter.getRoleDTO(role);
     }
+
 }

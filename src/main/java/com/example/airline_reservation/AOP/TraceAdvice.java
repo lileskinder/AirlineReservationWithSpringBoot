@@ -1,6 +1,7 @@
 package com.example.airline_reservation.AOP;
 
 import com.example.airline_reservation.ExceptionHandling.MyCustomException;
+import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,10 +22,16 @@ public class TraceAdvice extends ResponseEntityExceptionHandler {
         error.put("status", 400);
         error.put("data", null);
         error.put("isSuccessful", false);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 
-
-//        return handleExceptionInternal(ex, ex.getMessage(),
-//                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    @ExceptionHandler
+    protected ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        error.put("status", 404);
+        error.put("data", null);
+        error.put("isSuccessful", false);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

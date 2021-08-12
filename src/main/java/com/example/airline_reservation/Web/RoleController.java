@@ -28,22 +28,22 @@ public class RoleController {
 
     @GetMapping
     public ResponseEntity<List<RoleDTO>> getRoles() {
-        return new ResponseEntity<List<RoleDTO>>(service.getRoles(), HttpStatus.OK);
+        return new ResponseEntity<>(service.getRoles(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<RoleDTO> getRoleById(@PathVariable(name = "id") int id) {
-        return new ResponseEntity<RoleDTO>(service.getRoleById(id), HttpStatus.OK);
+        return new ResponseEntity<>(service.getRoleById(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<RoleDTO> addRole(@RequestBody RoleDTO RoleDTO) {
-        return new ResponseEntity<RoleDTO>(service.addRole(RoleDTO), HttpStatus.OK);
+        return new ResponseEntity<>(service.addRole(RoleDTO), HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<RoleDTO> updateRole(@RequestBody RoleDTO RoleDTO) {
-        return new ResponseEntity<RoleDTO>(service.updateRole(RoleDTO), HttpStatus.OK);
+        return new ResponseEntity<>(service.updateRole(RoleDTO), HttpStatus.OK);
     }
 
     @DeleteMapping
