@@ -51,17 +51,16 @@ public class RoleController {
         return new ResponseEntity<>(service.updateRole(RoleDTO), HttpStatus.OK);
     }
 
-//    @DeleteMapping
-//    @PreAuthorize("hasAnyRole('ADMIN')")
-//    public ResponseEntity<RoleDTO> deleteRole(@RequestBody RoleDTO RoleDTO) {
-//        service.deleteRole(RoleDTO.getId());
-//        return new ResponseEntity(HttpStatus.OK);
-//    }
+    @DeleteMapping
+    public ResponseEntity<RoleDTO> deleteRole(@RequestBody RoleDTO RoleDTO) {
+        service.deleteRole(RoleDTO.getId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<RoleDTO> deleteRoleById(@PathVariable(name = "id") int id) {
         service.deleteRole(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

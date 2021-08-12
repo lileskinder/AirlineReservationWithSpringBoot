@@ -39,7 +39,6 @@ public class PassengerController {
 	@PostMapping
 //	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
 	public ResponseEntity<?> addPassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
-		System.out.println(passengerDTO);
 		return new ResponseEntity<>(service.addPassenger(passengerDTO), HttpStatus.OK);
 	}
 

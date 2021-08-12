@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class PassengerServiceImpl implements PassengerService {
-
+	private final String NOT_FOUND_PASSENGER = " passenger does not exists";
 	private final PassengerRepo passengerRepo;
 
 	@Autowired
@@ -33,7 +33,7 @@ public class PassengerServiceImpl implements PassengerService {
 	@Override
 	public PassengerDTO getPassengerById(int id) {
 		Passenger passenger = passengerRepo.findById(id)
-				.orElseThrow(() -> new IllegalStateException("Passenger with id " + id + " does not exists"));
+				.orElseThrow(() -> new IllegalStateException(id + NOT_FOUND_PASSENGER));
 		return PassengerDTOAdapter.getPassengerDTO(passenger);
 	}
 
@@ -41,15 +41,15 @@ public class PassengerServiceImpl implements PassengerService {
 	public PassengerDTO updatePassenger(PassengerDTO PassengerDTO) {
 		Passenger passenger = PassengerDTOAdapter.getPassenger(PassengerDTO);
 		return PassengerDTOAdapter.getPassengerDTO(passengerRepo.save(passenger));
-
 	}
 
 	@Override
-	public void deletePassenger(int passengerId) {
-		if (!passengerRepo.existsById(passengerId)) {
-			throw new IllegalStateException("Passenger with id " + passengerId + " does not exists");
+	public void deletePassenger(int id) {
+		if (!passengerRepo.existsById(id)) {
+			throw new IllegalStateException(id + NOT_FOUND_PASSENGER);
 		}
-		passengerRepo.deleteById(passengerId);
+
+		passengerRepo.deleteById(id);
 	}
 
 	@Override
@@ -63,5 +63,4 @@ public class PassengerServiceImpl implements PassengerService {
 
 		return PassengerDTOList;
 	}
-
 }

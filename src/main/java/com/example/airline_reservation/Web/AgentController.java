@@ -49,13 +49,13 @@ public class AgentController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> deleteAgent(@Valid @RequestBody AgentDTO AgentDTO) {
         service.deleteAgent(AgentDTO.getId());
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> deleteAgentById(@PathVariable(name = "id") int id) {
         service.deleteAgent(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
