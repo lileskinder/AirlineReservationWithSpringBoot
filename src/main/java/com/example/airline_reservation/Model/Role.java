@@ -1,13 +1,9 @@
 package com.example.airline_reservation.Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 import lombok.Data;
 
@@ -17,11 +13,11 @@ public class Role {
     @Id
     @GeneratedValue
     protected int id;
-    @Column(name = "role", nullable = false)
+    @Column(name = "role", nullable = false, updatable = false)
     protected String role;
-    @Column(name = "userName", nullable = false)
+    @Column(name = "userName", nullable = false, updatable = false)
     protected String userName;
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, updatable = false)
     protected String password;
 
     public Role(int id, String role, String userName, String password) {

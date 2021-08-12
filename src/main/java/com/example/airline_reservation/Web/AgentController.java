@@ -43,12 +43,12 @@ public class AgentController {
     @DeleteMapping
     public ResponseEntity<?> deleteAgent(@Valid @RequestBody AgentDTO AgentDTO) {
         service.deleteAgent(AgentDTO.getId());
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAgentById(@PathVariable(name = "id") int id) {
         service.deleteAgent(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
