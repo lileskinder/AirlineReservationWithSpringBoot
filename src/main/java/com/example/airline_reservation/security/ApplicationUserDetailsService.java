@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -35,8 +36,14 @@ public class ApplicationUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Person person = personRepository.getPersonByUserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Person not Found"));
-        Role role = roleRepository.getRoleByPersonId(person.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Role not Found"));
+
+        List<Role> roles = roleRepository.getRoleByPersonId(person.getId());
+                //  .orElseThrow(() -> new ResourceNotFoundException("Role not Found"));
+        Role role;// = new Role();
+        if(roles.size() > 0)
+            role = roles.get(0);
+        else
+            throw  new ResourceNotFoundException("Role not Found");
 
         log.info("Person: {}", person);
         log.info("role: {}", role);

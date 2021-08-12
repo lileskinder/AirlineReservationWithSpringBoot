@@ -1,6 +1,7 @@
 package com.example.airline_reservation.Web;
 
 import com.example.airline_reservation.Model.Airline;
+import com.example.airline_reservation.Model.Airport;
 import com.example.airline_reservation.Service.DTOs.AirlineDTO;
 import com.example.airline_reservation.Service.Implementation.AirlineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -65,6 +68,17 @@ public class AirlineController {
     public ResponseEntity<?> deleteAirline(@Valid @PathVariable int id) {
         airlineService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/airport/{code}")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
+    public ResponseEntity<?> getAirlineFromAirport(@PathVariable String code) {
+        List<AirlineDTO> airlineList = new ArrayList<>();
+
+        for (AirlineDTO airlineDTO: airlineService.findFlightsFromAirport(code)) {
+            airlineList.add(airlineDTO);
+        }
+        return new ResponseEntity<>(airlineList, HttpStatus.OK);
     }
 
 

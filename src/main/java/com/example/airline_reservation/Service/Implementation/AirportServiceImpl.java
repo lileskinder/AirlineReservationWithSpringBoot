@@ -2,6 +2,8 @@ package com.example.airline_reservation.Service.Implementation;
 
 import com.example.airline_reservation.DAO.AirportRepo;
 
+import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
+import com.example.airline_reservation.Model.Airline;
 import com.example.airline_reservation.Model.Airport;
 import com.example.airline_reservation.Service.AirportService;
 import com.example.airline_reservation.Service.DTOs.AirportDTO;
@@ -46,7 +48,6 @@ public class AirportServiceImpl implements AirportService {
     }
 
     public Airport getAirportByCode(String airportCode){
-
         return airportRepository.findByCode(airportCode);
     }
 
@@ -64,7 +65,7 @@ public class AirportServiceImpl implements AirportService {
     public void deleteAirport(int airportId){
         boolean exists=airportRepository.existsById(airportId);
         if(!exists){
-            throw new IllegalStateException("Airport"+airportId+" doest not exists");
+            throw new ResourceNotFoundException("Airport"+airportId+" doest not exists");
         }
         airportRepository.deleteById(airportId);
     }

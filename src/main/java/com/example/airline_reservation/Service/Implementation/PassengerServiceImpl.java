@@ -1,6 +1,7 @@
 package com.example.airline_reservation.Service.Implementation;
 
 import com.example.airline_reservation.DAO.PassengerRepo;
+import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
 import com.example.airline_reservation.Model.Passenger;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.PassengerDTOAdapter;
 import com.example.airline_reservation.Service.DTOs.PassengerDTO;
@@ -33,7 +34,7 @@ public class PassengerServiceImpl implements PassengerService {
 	@Override
 	public PassengerDTO getPassengerById(int id) {
 		Passenger passenger = passengerRepo.findById(id)
-				.orElseThrow(() -> new IllegalStateException(id + NOT_FOUND_PASSENGER));
+				.orElseThrow(() -> new ResourceNotFoundException(id + NOT_FOUND_PASSENGER));
 		return PassengerDTOAdapter.getPassengerDTO(passenger);
 	}
 
@@ -46,7 +47,7 @@ public class PassengerServiceImpl implements PassengerService {
 	@Override
 	public void deletePassenger(int id) {
 		if (!passengerRepo.existsById(id)) {
-			throw new IllegalStateException(id + NOT_FOUND_PASSENGER);
+			throw new ResourceNotFoundException(id + NOT_FOUND_PASSENGER);
 		}
 
 		passengerRepo.deleteById(id);

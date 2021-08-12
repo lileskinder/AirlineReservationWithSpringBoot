@@ -31,8 +31,10 @@ public abstract class Person {
     protected String userName;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "Person_Role", joinColumns = { @JoinColumn(name = "personId") }, inverseJoinColumns = {
-            @JoinColumn(name = "roleId") })
+    @JoinTable(name = "Person_Role",
+            joinColumns = { @JoinColumn(name = "personId") },
+            inverseJoinColumns = {@JoinColumn(name = "roleId")}
+    )
     protected List<Role> roles = new ArrayList<>();
 
     public Person() {

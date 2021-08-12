@@ -4,6 +4,7 @@ import com.example.airline_reservation.DAO.AirlineRepo;
 import com.example.airline_reservation.DAO.AirportRepo;
 import com.example.airline_reservation.DAO.FlightRepo;
 import com.example.airline_reservation.ExceptionHandling.MyCustomException;
+import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
 import com.example.airline_reservation.Model.Flight;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.FlightDTOAdapter;
 import com.example.airline_reservation.Service.DTOs.FlightDTO;
@@ -83,7 +84,7 @@ public class FlightServiceImpl implements FlightService {
         FlightDTO flightDTO = FlightDTOAdapter.getFlightDTO(flightOptional.get());
 
         if (!flightOptional.isPresent()) {
-            throw new MyCustomException("Flight Number does not exist!!!");
+            throw new ResourceNotFoundException("Flight Number does not exist!!!");
         } else {
             return flightDTO;
         }
@@ -146,7 +147,7 @@ public class FlightServiceImpl implements FlightService {
                 throw new MyCustomException("Incorrect Flight Status!!!");
             }
         } else {
-            throw new MyCustomException("Flight Number does not exist!!!");
+            throw new ResourceNotFoundException("Flight Number does not exist!!!");
         }
 
         FlightDTO flightDTO2 = FlightDTOAdapter.getFlightDTO(flight);
@@ -169,7 +170,7 @@ public class FlightServiceImpl implements FlightService {
                 throw new MyCustomException("Incorrect Flight Status!!!");
             }
         } else {
-            throw new MyCustomException("Flight Number does not exist!!!");
+            throw new ResourceNotFoundException("Flight Number does not exist!!!");
         }
 
         FlightDTO flightDTO = FlightDTOAdapter.getFlightDTO(flight);
@@ -192,7 +193,7 @@ public class FlightServiceImpl implements FlightService {
         if(flightDTOList.size() > 0)
             return flightDTOList;
         else {
-            throw new MyCustomException("There are no flights in the specified date!!!");
+            throw new ResourceNotFoundException("There are no flights in the specified date!!!");
         }
     }
 
@@ -207,7 +208,7 @@ public class FlightServiceImpl implements FlightService {
         if(flightDTOList.size() > 0)
             return flightDTOList;
         else {
-            throw new MyCustomException("There are no flights in the specified Airport!!!");
+            throw new ResourceNotFoundException("There are no flights in the specified Airport!!!");
         }
     }
 

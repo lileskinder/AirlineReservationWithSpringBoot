@@ -90,7 +90,6 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<ReservationDTO> getPersonReservations(Optional<Integer> page, String username) {
-        Pageable pagination = PageRequest.of(page.orElse(0), 10);
         List<ReservationDTO> reservationDTOList = new ArrayList<>();
 
         for (Reservation reservation : reservationRepo.findOwnReservation(username)) {

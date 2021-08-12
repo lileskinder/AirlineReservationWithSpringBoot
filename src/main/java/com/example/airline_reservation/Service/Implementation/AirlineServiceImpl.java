@@ -1,11 +1,17 @@
 package com.example.airline_reservation.Service.Implementation;
 
 import com.example.airline_reservation.DAO.AirlineRepo;
+import com.example.airline_reservation.DAO.AirportRepo;
+import com.example.airline_reservation.ExceptionHandling.MyCustomException;
+import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
 import com.example.airline_reservation.Model.Airline;
+import com.example.airline_reservation.Model.Airport;
 import com.example.airline_reservation.Service.AirlineService;
 import com.example.airline_reservation.Service.DTOs.AirlineDTO;
 
+import com.example.airline_reservation.Service.DTOs.AirportDTO;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.AirlineDTOAdapter;
+import com.example.airline_reservation.Service.DTOs.DTOAdapters.AirportDTOAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,17 +27,19 @@ import java.util.Optional;
 public class AirlineServiceImpl implements AirlineService {
 
     private final AirlineRepo airlineRepo;
+    private final AirportRepo airportRepo;
 
     @Autowired
-    AirlineServiceImpl(AirlineRepo airlineRepo){
+    AirlineServiceImpl(AirlineRepo airlineRepo, AirportRepo airportRepo){
         this.airlineRepo=airlineRepo;
+        this.airportRepo = airportRepo;
     }
 
     @Override
     public Airline findById(Integer id) {
         boolean found = airlineRepo.existsById(id);
         if (!found){
-            throw new IllegalStateException("Airline with this id Not Found");
+            throw new ResourceNotFoundException("Airline with this id Not Found");
         }
         return airlineRepo.findById(id).get();
     }
@@ -59,7 +67,7 @@ public class AirlineServiceImpl implements AirlineService {
         Optional<Airline> airlineOptional = airlineRepo.findByCode(airlineDTO.getCode());
 
         if(airlineOptional.isPresent()) {
-            throw new IllegalStateException("code "+airlineOptional+"is already taken please provide another one");
+            throw new MyCustomException("code "+airlineOptional+"is already taken please provide another one");
         }
 
         airlineRepo.save(airline);
@@ -71,7 +79,7 @@ public class AirlineServiceImpl implements AirlineService {
     public AirlineDTO Update(int id, AirlineDTO airlinDTO) {
         boolean found = airlineRepo.existsById(id);
         if (!found){
-            throw new IllegalStateException("Airline with this id Not Found");
+            throw new ResourceNotFoundException("Airline with this id Not Found");
         }
         Airline airport1 = AirlineDTOAdapter.getAirline(airlinDTO);
         Airline airport = airlineRepo.findById(id).get();
@@ -86,9 +94,18 @@ public class AirlineServiceImpl implements AirlineService {
     public void delete(int id){
         boolean exists=airlineRepo.existsById(id);
         if(!exists){
-            throw new IllegalStateException("Airline"+id+" doest not exists");
+            throw new ResourceNotFoundException("Airline"+id+" doest not exists");
         }
         airlineRepo.deleteById(id);
         System.out.println("deleted");
+    }
+
+    @Override
+    public List<AirlineDTO> findFlightsFromAirport(String airportCode) {
+        List<AirlineDTO> airlineDTOList = new ArrayList<>();
+        for (Airline airline: airlineRepo.findFlightsFromAirport(airportCode)) {
+            airlineDTOList.add(AirlineDTOAdapter.getAirlineDTO(airline));
+        }
+        return airlineDTOList;
     }
 }
