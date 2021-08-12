@@ -17,4 +17,5 @@ public interface AirlineRepo extends JpaRepository<Airline, Integer> {
 
     @Query("SELECT f.airline from Flight f where f.departureAirport.code = :airportCode")
     List<Airline> findFlightsFromAirport(String airportCode);
+
 }
