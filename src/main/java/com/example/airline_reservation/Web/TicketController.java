@@ -27,4 +27,10 @@ public class TicketController {
     public ResponseEntity<?> getTicket(@PathVariable int id) {
         return new ResponseEntity<>(ticketService.getPassengerTicketDetails(id), HttpStatus.OK);
     }
+
+    @GetMapping("/{id}/flights")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<?> getFlightsFromTicket(@PathVariable int id) {
+        return new ResponseEntity<>(ticketService.getFlightsFromTicket(id), HttpStatus.OK);
+    }
 }
