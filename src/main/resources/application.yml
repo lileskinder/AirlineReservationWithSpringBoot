@@ -4,6 +4,22 @@ server:
     include-message: always
 
 spring:
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    port: 587
+    username: binyamdesta33@gmail.com
+    password: 091233
+    properties:
+      mail:
+        smtp:
+          debug: true
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+    test-connection: false
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/airliner

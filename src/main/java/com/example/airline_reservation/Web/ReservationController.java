@@ -45,7 +45,7 @@ public class ReservationController {
     @PostMapping("")
     public ResponseEntity<?> getReservations(@Valid  @RequestBody ReservationDTO reservationDTO) {
         return new ResponseEntity<ReservationDTO>(
-                reservationService.makeReservation(reservationDTO),
+                reservationService.saveReservation(reservationDTO),
                 HttpStatus.OK
         );
     }

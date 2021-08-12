@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReservationService {
-    public ReservationDTO makeReservation(ReservationDTO reservationDTO);
+    public ReservationDTO saveReservation(ReservationDTO reservationDTO);
     public ReservationDTO updateReservation(String code, ReservationDTO reservationDTO);
     public List<ReservationDTO> getReservations(Optional<Integer> page);
     public ReservationDTO getReservationByCode(String code);

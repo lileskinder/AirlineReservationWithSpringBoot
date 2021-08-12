@@ -2,12 +2,9 @@ package com.example.airline_reservation.Service.Implementation;
 
 import com.example.airline_reservation.DAO.FlightRepo;
 import com.example.airline_reservation.DAO.TicketRepo;
-import com.example.airline_reservation.Model.Flight;
 import com.example.airline_reservation.Model.Ticket;
-import com.example.airline_reservation.Service.DTOs.DTOAdapters.FlightDTOAdapter;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.PassengerTicketDTOAdapter;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.TicketDTOAdapter;
-import com.example.airline_reservation.Service.DTOs.FlightDTO;
 import com.example.airline_reservation.Service.DTOs.PassengerTicketDTO;
 import com.example.airline_reservation.Service.DTOs.TicketDTO;
 import com.example.airline_reservation.Service.PassengerService;

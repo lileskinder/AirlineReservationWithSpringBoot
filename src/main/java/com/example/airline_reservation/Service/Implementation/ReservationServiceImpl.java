@@ -40,7 +40,7 @@ public class ReservationServiceImpl implements ReservationService {
         this.flightRepo = flightRepo;
     }
 
-    public ReservationDTO makeReservation(ReservationDTO reservationDTO) {
+    public ReservationDTO saveReservation(ReservationDTO reservationDTO) {
         return ReservationDTOAdapter.getReservationDTO(
                 reservationRepo.save(
                         ReservationDTOAdapter.getReservation(
