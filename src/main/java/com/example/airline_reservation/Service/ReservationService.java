@@ -13,6 +13,7 @@ public interface ReservationService {
     public ReservationDTO updateReservation(String code, ReservationDTO reservationDTO);
     public List<ReservationDTO> getReservations(Optional<Integer> page);
     public ReservationDTO getReservationByCode(String code);
+    public List<ReservationDTO> getPersonReservations(Optional<Integer> page, String username);
     public ReservationDTO confirmReservation(String code, ReservationDTO reservationDTO);
     public ReservationDTO cancelReservation(String code, ReservationDTO reservationDTO);
 }

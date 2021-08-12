@@ -3,6 +3,7 @@ package com.example.airline_reservation.Service.Implementation;
 import com.example.airline_reservation.DAO.FlightRepo;
 import com.example.airline_reservation.DAO.PersonRepo;
 import com.example.airline_reservation.DAO.ReservationRepo;
+import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
 import com.example.airline_reservation.Model.Reservation;
 import com.example.airline_reservation.Model.ReservationStatus;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.ReservationDTOAdapter;
@@ -73,23 +74,37 @@ public class ReservationServiceImpl implements ReservationService {
 
         List<ReservationDTO> reservationDTOList = new ArrayList<>();
 
-        for(Reservation reservation: reservationRepo.findAll(pagination)) {
+        for (Reservation reservation : reservationRepo.findAll(pagination)) {
             reservationDTOList.add(ReservationDTOAdapter.getReservationDTO(reservation));
         }
 
         return reservationDTOList;
     }
 
-    public ReservationDTO getReservationByCode(String code) {
-        Optional<Reservation> reservationOptional = reservationRepo.findByCode(code);
-        Reservation reservation = reservationOptional.get();
-        ReservationDTO flightDTO = ReservationDTOAdapter.getReservationDTO(reservation);
+//    @Override
+//    public ReservationDTO getReservationByCode(String code, String username) {
+//        Reservation reservation = reservationRepo.findOwnReservation(code, username)
+//                .orElseThrow(() -> new ResourceNotFoundException("Reservation not Found with code " + code));
+//        return ReservationDTOAdapter.getReservationDTO(reservation);
+//    }
 
-        if (reservationOptional.isPresent()) {
-            return flightDTO;
-        } else {
-            throw new IllegalStateException("Invalid reservation code!!!");
+    @Override
+    public List<ReservationDTO> getPersonReservations(Optional<Integer> page, String username) {
+        Pageable pagination = PageRequest.of(page.orElse(0), 10);
+        List<ReservationDTO> reservationDTOList = new ArrayList<>();
+
+        for (Reservation reservation : reservationRepo.findOwnReservation(username)) {
+            reservationDTOList.add(ReservationDTOAdapter.getReservationDTO(reservation));
         }
+
+        return reservationDTOList;
+    }
+
+    @Override
+    public ReservationDTO getReservationByCode(String code) {
+        Reservation reservation = reservationRepo.findByCode(code)
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation not Found with code " + code));
+        return ReservationDTOAdapter.getReservationDTO(reservation);
     }
 
     public ReservationDTO confirmReservation(String code, ReservationDTO reservationDTO) {
