@@ -2,6 +2,7 @@ package com.example.airline_reservation.Web;
 
 import com.example.airline_reservation.Service.DTOs.PassengerDTO;
 import com.example.airline_reservation.Service.DTOs.PersonDTO;
+import com.example.airline_reservation.Service.DTOs.RoleDTO;
 import com.example.airline_reservation.Service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,30 +37,23 @@ public class PassengerController {
 		return new ResponseEntity<PersonDTO>(service.getPassengerById(id), HttpStatus.OK);
 	}
 
+	@GetMapping("/{id}/roles")
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT')")
+	public ResponseEntity<?> getPassengerRoles(@PathVariable(name = "id") int id) {
+		List<RoleDTO> roles = service.getPassengerRoles(id);
+		return new ResponseEntity<>(roles, HttpStatus.OK);
+	}
+
 	@PostMapping
-//	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
 	public ResponseEntity<?> addPassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
 		return new ResponseEntity<>(service.addPassenger(passengerDTO), HttpStatus.OK);
 	}
-
-	//    TODO: Update passanger for passanger and agent only
 
 	@PutMapping
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<?> updatePassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
 		return new ResponseEntity<>(service.updatePassenger(passengerDTO), HttpStatus.OK);
 	}
-
-	//    TODO: delete passanger for passanger and agent only
-//
-//	@DeleteMapping
-//	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT')")
-//	public ResponseEntity<?> deletePassenger(@Valid @RequestBody PersonDTO personDTO) {
-//		service.deletePassenger(personDTO.getId());
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
-
-	//    TODO: Update passanger for passanger and agent only
 
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasAnyRole('ADMIN')")

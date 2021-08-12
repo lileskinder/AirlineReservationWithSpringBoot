@@ -37,6 +37,7 @@ public class AdminDTOAdapter {
 
 			if (adminDTO.getRoles() != null)
 				for (RoleDTO r : adminDTO.getRoles()) {
+					r.setUserName(adminDTO.getUserName());
 					admin.getRoles().add(RoleDTOAdapter.getRole(r));
 				}
 		}

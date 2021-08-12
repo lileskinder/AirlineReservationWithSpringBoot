@@ -23,6 +23,7 @@ public class PassengerDTOAdapter {
 			passenger.setUserName(passengerDTO.getUserName());
 			if (passengerDTO.getRoles() != null)
 				for (RoleDTO r : passengerDTO.getRoles()) {
+					r.setUserName(passengerDTO.getUserName());
 					passenger.getRoles().add(RoleDTOAdapter.getRole(r));
 				}
 		}

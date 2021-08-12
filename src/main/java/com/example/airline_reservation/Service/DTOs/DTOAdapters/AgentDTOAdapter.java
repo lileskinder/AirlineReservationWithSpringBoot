@@ -21,6 +21,7 @@ public class AgentDTOAdapter {
 
 			if (agent.getRoles() != null)
 				for (Role r : agent.getRoles()) {
+
 					agentDTO.getRoles().add(RoleDTOAdapter.getRoleDTO(r));
 				}
 
@@ -42,6 +43,7 @@ public class AgentDTOAdapter {
 
 			if (agentDTO.getRoles() != null)
 				for (RoleDTO r : agentDTO.getRoles()) {
+					r.setUserName(agentDTO.getUserName());
 					agent.getRoles().add(RoleDTOAdapter.getRole(r));
 				}
 		}

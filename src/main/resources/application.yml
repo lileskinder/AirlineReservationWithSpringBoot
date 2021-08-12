@@ -6,9 +6,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/airliner
+    url: jdbc:mysql://localhost/airline
     username: root
-    password: 1234
+    password: server
   jpa:
     show-sql: true
     hibernate:

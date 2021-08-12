@@ -3,8 +3,11 @@ package com.example.airline_reservation.Service.Implementation;
 import com.example.airline_reservation.DAO.PassengerRepo;
 import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
 import com.example.airline_reservation.Model.Passenger;
+import com.example.airline_reservation.Model.Role;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.PassengerDTOAdapter;
+import com.example.airline_reservation.Service.DTOs.DTOAdapters.RoleDTOAdapter;
 import com.example.airline_reservation.Service.DTOs.PassengerDTO;
+import com.example.airline_reservation.Service.DTOs.RoleDTO;
 import com.example.airline_reservation.Service.PassengerService;
 
 import java.util.ArrayList;
@@ -63,5 +66,21 @@ public class PassengerServiceImpl implements PassengerService {
 		}
 
 		return PassengerDTOList;
+	}
+
+	@Override
+	public List<RoleDTO> getPassengerRoles(int passengerId) {
+
+		Passenger passenger = passengerRepo.findById(passengerId)
+				.orElseThrow(() -> new ResourceNotFoundException(passengerId + NOT_FOUND_PASSENGER));
+
+		List<Role> roles = passenger.getRoles();
+		List<RoleDTO> roleDTOList = new ArrayList<>();
+
+		for (Role role : roles) {
+			roleDTOList.add(RoleDTOAdapter.getRoleDTO(role));
+		}
+
+		return roleDTOList;
 	}
 }

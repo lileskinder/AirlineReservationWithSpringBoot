@@ -26,7 +26,7 @@ public class RoleDTOAdapter {
             roleDTO.setId(role.getId());
             roleDTO.setRole(role.getRole());
             roleDTO.setUserName(role.getUserName());
-            roleDTO.setPassword(role.getPassword());
+            roleDTO.setPassword("********"); // role.getPassword();
         }
         return roleDTO;
     }

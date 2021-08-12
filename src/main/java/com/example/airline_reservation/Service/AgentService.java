@@ -14,4 +14,5 @@ public interface AgentService {
 	public List<AgentDTO> getAgents();
 
 	public AgentDTO getAgentById(int agentId);
+
 }
