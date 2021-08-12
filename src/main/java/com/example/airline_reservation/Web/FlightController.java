@@ -31,7 +31,6 @@ public class FlightController {
         return ResponseEntity.ok(flightService.addFlight(flightDTO));
     }
 
-//    TODO: Add get flights for agent only
 
     @GetMapping("")
     @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
@@ -39,7 +38,6 @@ public class FlightController {
         return ResponseEntity.ok(flightService.findAll(page));
     }
 
-    //    TODO: Add get flight for agent and passenger only
 
     @GetMapping("/{flightNumber}")
     @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")

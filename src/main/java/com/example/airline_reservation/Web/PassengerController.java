@@ -45,18 +45,19 @@ public class PassengerController {
 	}
 
 	@PostMapping
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
 	public ResponseEntity<?> addPassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
 		return new ResponseEntity<>(service.addPassenger(passengerDTO), HttpStatus.OK);
 	}
 
 	@PutMapping
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
 	public ResponseEntity<?> updatePassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
 		return new ResponseEntity<>(service.updatePassenger(passengerDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
 	public ResponseEntity<?> deletePassengerById(@PathVariable(name = "id") int id) {
 		service.deletePassenger(id);
 		return new ResponseEntity<>(HttpStatus.OK);

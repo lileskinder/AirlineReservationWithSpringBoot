@@ -51,6 +51,7 @@ public class RoleController {
         return new ResponseEntity<>(service.updateRole(RoleDTO), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping
     public ResponseEntity<RoleDTO> deleteRole(@RequestBody RoleDTO RoleDTO) {
         service.deleteRole(RoleDTO.getId());
