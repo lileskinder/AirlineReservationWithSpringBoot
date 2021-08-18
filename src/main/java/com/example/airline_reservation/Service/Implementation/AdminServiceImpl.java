@@ -2,6 +2,7 @@ package com.example.airline_reservation.Service.Implementation;
 
 
 import com.example.airline_reservation.DAO.AdminRepo;
+import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deleteAdmin(int adminId) {
 		if (!repo.existsById(adminId)) {
-			throw new IllegalStateException("Admin with id " + adminId + " does not exists");
+			throw new ResourceNotFoundException("Admin with id " + adminId + " does not exists");
 		}
 		repo.deleteById(adminId);
 	}
@@ -61,7 +62,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public AdminDTO getAdminById(int adminId) {
 		Admin admin = repo.findById(adminId)
-				.orElseThrow(() -> new IllegalStateException("Admin with id " + adminId + " does not exists"));
+				.orElseThrow(() -> new ResourceNotFoundException("Admin with id " + adminId + " does not exists"));
 		return AdminDTOAdapter.getAdminDTO(admin);
 	}
 }

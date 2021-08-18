@@ -16,8 +16,8 @@ public class Passenger extends Person {
     }
 
     public Passenger(int id, String firstName, String lastName, Address address, String email, String userName,
-            LocalDate dob) {
-        super(id, firstName, lastName, address, email, userName);
+            Role role, LocalDate dob) {
+        super(id, firstName, lastName, address, email, userName, role);
         this.dob = dob;
     }
 

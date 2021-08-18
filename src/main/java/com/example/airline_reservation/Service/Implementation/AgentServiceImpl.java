@@ -1,6 +1,7 @@
 package com.example.airline_reservation.Service.Implementation;
 
 import com.example.airline_reservation.DAO.AgentRepo;
+import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class AgentServiceImpl implements AgentService {
 	public void deleteAgent(int agentId) {
 		if (existsAgent(agentId))
 			repo.deleteById(agentId);
+		else new ResourceNotFoundException("Agent Not found");
 	}
 
 	@Override
@@ -59,14 +61,14 @@ public class AgentServiceImpl implements AgentService {
 	public AgentDTO getAgentById(int agentId) {
 		Agent agent = null;
 		agent = repo.findById(agentId)
-				.orElseThrow(() -> new IllegalStateException("Agent with id " + agentId + " does not exists"));
+				.orElseThrow(() -> new ResourceNotFoundException("Agent with id " + agentId + " does not exists"));
 
 		return AgentDTOAdapter.getAgentDTO(agent);
 	}
 
 	private boolean existsAgent(int agentId) {
 		if (!repo.existsById(agentId)) {
-			throw new IllegalStateException("Agent with id " + agentId + " does not exists");
+			throw new ResourceNotFoundException("Agent with id " + agentId + " does not exists");
 		} else {
 			return true;
 		}

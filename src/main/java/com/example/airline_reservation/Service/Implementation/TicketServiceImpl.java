@@ -33,6 +33,7 @@ public class TicketServiceImpl implements TicketService {
         this.passengerService = passengerService;
         this.flightRepo = flightRepo;
     }
+/*
 
     public TicketDTO createTicket(TicketDTO ticketDTO) {
         Ticket ticket = TicketDTOAdapter.getTicket(ticketDTO, passengerService, flightRepo);
@@ -54,8 +55,21 @@ public class TicketServiceImpl implements TicketService {
 
         return TicketDTOAdapter.getTicketDTO(ticketRepo.getById(id));
     }
+*/
 
     public PassengerTicketDTO getPassengerTicketDetails(int id) {
         return PassengerTicketDTOAdapter.getPassengerTicketDTO(ticketRepo.getById(id));
     }
+
+    @Override
+    public List<TicketDTO> getFlightsFromTicket(int id) {
+        List<TicketDTO> ticketDTOList = new ArrayList<>();
+
+        for (Ticket ticket: ticketRepo.getListOfTickets(id)) {
+            ticketDTOList.add(TicketDTOAdapter.getTicketDTO(ticket));
+        }
+
+        return ticketDTOList;
+    }
+
 }

@@ -6,6 +6,7 @@ import com.example.airline_reservation.Service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,35 +24,34 @@ public class PassengerController {
 	}
 
 	@GetMapping
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT')")
 	public ResponseEntity<?> getPassengers() {
 		List<PassengerDTO> passengers = service.getPassengers();
 		return new ResponseEntity<>(passengers, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT')")
 	public ResponseEntity<?> getPassengerById(@PathVariable(name = "id") int id) {
 		return new ResponseEntity<PersonDTO>(service.getPassengerById(id), HttpStatus.OK);
 	}
 
 	@PostMapping
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
 	public ResponseEntity<?> addPassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
-		System.out.println(passengerDTO);
 		return new ResponseEntity<>(service.addPassenger(passengerDTO), HttpStatus.OK);
 	}
 
+
 	@PutMapping
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
 	public ResponseEntity<?> updatePassenger(@Valid @RequestBody PassengerDTO passengerDTO) {
 		return new ResponseEntity<>(service.updatePassenger(passengerDTO), HttpStatus.OK);
 	}
 
-	@DeleteMapping
-	public ResponseEntity<?> deletePassenger(@Valid @RequestBody PersonDTO personDTO) {
-		service.deletePassenger(personDTO.getId());
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
 
 	@DeleteMapping("/{id}")
-
+	@PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
 	public ResponseEntity<?> deletePassengerById(@PathVariable(name = "id") int id) {
 		service.deletePassenger(id);
 		return new ResponseEntity<>(HttpStatus.OK);

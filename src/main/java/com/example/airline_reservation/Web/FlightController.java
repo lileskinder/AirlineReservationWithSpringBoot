@@ -6,6 +6,7 @@ import com.example.airline_reservation.Service.Implementation.FlightServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,22 +26,27 @@ public class FlightController {
     }
 
     @PostMapping("")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<FlightDTO> addFlight(@RequestBody FlightDTO flightDTO) {
         return ResponseEntity.ok(flightService.addFlight(flightDTO));
     }
 
 
     @GetMapping("")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<List<FlightDTO>> getFlights(@RequestParam Optional<Integer> page) {
         return ResponseEntity.ok(flightService.findAll(page));
     }
 
+
     @GetMapping("/{flightNumber}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<FlightDTO> getFlight(@PathVariable("flightNumber") Integer flightNumber) {
         return ResponseEntity.ok(flightService.findByFlightNumber(flightNumber));
     }
 
     @PutMapping("/{flightNumber}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<FlightDTO> updateFlight(
             @Valid
             @PathVariable("flightNumber") Integer flightNumber,
@@ -60,6 +66,7 @@ public class FlightController {
     }
 
     @PatchMapping("/{flightNumber}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<FlightDTO> cancelFlight(
             @PathVariable("flightNumber") Integer flightNumber,
             @RequestBody FlightDTO flightDTO
@@ -72,6 +79,7 @@ public class FlightController {
     }
 
     @GetMapping("/specificDate")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<List<FlightDTO>> getFlightsInSpecificDate(
             @RequestParam(value = "departureDate")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate departureDate
@@ -80,6 +88,7 @@ public class FlightController {
     }
 
     @GetMapping("/flightFromAirport")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<List<FlightDTO>> getFlightsFromAirport(
             @RequestParam(value = "airportId") Integer airportId
     ) {

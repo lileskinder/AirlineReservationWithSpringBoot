@@ -1,10 +1,18 @@
 package com.example.airline_reservation.Web;
 
+import com.example.airline_reservation.ExceptionHandling.MyCustomException;
+import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
+import com.example.airline_reservation.Model.Ticket;
+import com.example.airline_reservation.Service.DTOs.DTOAdapters.TicketDTOAdapter;
 import com.example.airline_reservation.Service.DTOs.ReservationDTO;
+import com.example.airline_reservation.Service.DTOs.TicketDTO;
 import com.example.airline_reservation.Service.ReservationService;
+import com.example.airline_reservation.Service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,28 +24,54 @@ import java.util.Optional;
 public class ReservationController {
 
     private ReservationService reservationService;
+    private TicketService ticketService;
 
     @Autowired
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(ReservationService reservationService,
+                                 TicketService ticketService) {
         this.reservationService = reservationService;
+        this.ticketService = ticketService;
     }
 
     @GetMapping("")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> getReservations(@RequestParam Optional<Integer> page) {
         List<ReservationDTO> reservationDTOList = reservationService.getReservations(page);
         return new ResponseEntity<>(reservationDTOList, HttpStatus.OK);
     }
 
-    @GetMapping("/{code}")
-    public ResponseEntity<?> getReservation(@PathVariable String code) {
+    @GetMapping("/my")
+    @PreAuthorize("hasAnyRole('PASSENGER')")
+    public ResponseEntity<?> getPersonReservations(@RequestParam Optional<Integer> page, Authentication authentication) {
+        String name = authentication.getName();
         return new ResponseEntity<>(
-                reservationService.getReservationByCode(code),
+                reservationService.getPersonReservations(page, name), //name
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/{code}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<?> getReservation(@PathVariable String code, Authentication authentication) {
+        String name = authentication.getName();
+        return new ResponseEntity<>(
+                reservationService.getReservationByCode(code), //name
                 HttpStatus.OK
         );
     }
 
     @PostMapping("")
-    public ResponseEntity<?> getReservations(@Valid  @RequestBody ReservationDTO reservationDTO) {
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
+    public ResponseEntity<?> postReservations(@Valid  @RequestBody ReservationDTO reservationDTO) {
+
+        List<TicketDTO> tickets = reservationService.getReservationTicketsAvailability(reservationDTO);
+
+        if(tickets.size() == 0) {
+            throw new ResourceNotFoundException("Ticket(s) not available for this reservation!!!");
+        } else {
+            reservationDTO.setTickets(tickets);
+        }
+
         return new ResponseEntity<>(
                 reservationService.makeReservation(reservationDTO),
                 HttpStatus.OK
@@ -45,6 +79,7 @@ public class ReservationController {
     }
 
     @PutMapping("/{code}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<?> updateReservation(
             @PathVariable String code,
             @Valid @RequestBody ReservationDTO reservationDTO) {
@@ -55,6 +90,7 @@ public class ReservationController {
     }
 
     @PutMapping("/confirm/{code}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<?> confirmReservation(
             @PathVariable String code,
             @Valid @RequestBody ReservationDTO reservationDTO) {
@@ -65,6 +101,7 @@ public class ReservationController {
     }
 
     @PutMapping("/cancel/{code}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'AGENT', 'PASSENGER')")
     public ResponseEntity<?> cancelReservation(
             @PathVariable String code,
             @Valid @RequestBody ReservationDTO reservationDTO) {

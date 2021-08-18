@@ -15,9 +15,9 @@ public class Agent extends Person {
     public Agent() {
     }
 
-    public Agent(int id, String firstName, String lastName, Address address, String email, String userName,
-            int agentId) {
-        super(id, firstName, lastName, address, email, userName);
+    public Agent(int id, String firstName, String lastName, Address address, String email, String userName, int agentId,
+            Role role) {
+        super(id, firstName, lastName, address, email, userName, role);
         this.agentId = agentId;
     }
 

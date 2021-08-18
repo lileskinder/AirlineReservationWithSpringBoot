@@ -12,8 +12,8 @@ public class RoleDTOAdapter {
         if (roleDTO != null) {
             role.setId(roleDTO.getId());
             role.setRole(roleDTO.getRole());
+            role.setUserName(roleDTO.getUserName());
             role.setPassword(hash(roleDTO.getPassword()));
-            role.setPersonId(roleDTO.getPersonId());
         }
 
         return role;
@@ -25,13 +25,13 @@ public class RoleDTOAdapter {
         if (role != null) {
             roleDTO.setId(role.getId());
             roleDTO.setRole(role.getRole());
+            roleDTO.setUserName(role.getUserName());
             roleDTO.setPassword(role.getPassword());
-            roleDTO.setPersonId(role.getPersonId());
         }
         return roleDTO;
     }
 
     public static String hash(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt(11));
+        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 }
