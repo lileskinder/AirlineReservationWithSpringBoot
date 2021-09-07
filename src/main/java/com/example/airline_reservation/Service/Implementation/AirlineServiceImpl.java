@@ -5,13 +5,10 @@ import com.example.airline_reservation.DAO.AirportRepo;
 import com.example.airline_reservation.ExceptionHandling.MyCustomException;
 import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
 import com.example.airline_reservation.Model.Airline;
-import com.example.airline_reservation.Model.Airport;
 import com.example.airline_reservation.Service.AirlineService;
 import com.example.airline_reservation.Service.DTOs.AirlineDTO;
 
-import com.example.airline_reservation.Service.DTOs.AirportDTO;
 import com.example.airline_reservation.Service.DTOs.DTOAdapters.AirlineDTOAdapter;
-import com.example.airline_reservation.Service.DTOs.DTOAdapters.AirportDTOAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

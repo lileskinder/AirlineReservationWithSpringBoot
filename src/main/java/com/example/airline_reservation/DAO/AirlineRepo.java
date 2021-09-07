@@ -1,7 +1,6 @@
 package com.example.airline_reservation.DAO;
 
 import com.example.airline_reservation.Model.Airline;
-import com.example.airline_reservation.Service.DTOs.AirlineDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

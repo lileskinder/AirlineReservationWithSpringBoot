@@ -1,23 +1,29 @@
 package com.example.airline_reservation.Web;
 
-import com.example.airline_reservation.ExceptionHandling.MyCustomException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
-import com.example.airline_reservation.Model.Ticket;
-import com.example.airline_reservation.Service.DTOs.DTOAdapters.TicketDTOAdapter;
-import com.example.airline_reservation.Service.DTOs.ReservationDTO;
-import com.example.airline_reservation.Service.DTOs.TicketDTO;
 import com.example.airline_reservation.Service.ReservationService;
 import com.example.airline_reservation.Service.TicketService;
+import com.example.airline_reservation.Service.DTOs.ReservationDTO;
+import com.example.airline_reservation.Service.DTOs.TicketDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/reservations")
@@ -53,7 +59,7 @@ public class ReservationController {
     @GetMapping("/{code}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> getReservation(@PathVariable String code, Authentication authentication) {
-        String name = authentication.getName();
+        //String name = authentication.getName();
         return new ResponseEntity<>(
                 reservationService.getReservationByCode(code), //name
                 HttpStatus.OK

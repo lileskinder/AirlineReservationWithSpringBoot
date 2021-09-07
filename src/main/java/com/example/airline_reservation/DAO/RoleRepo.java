@@ -1,7 +1,6 @@
 package com.example.airline_reservation.DAO;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.example.airline_reservation.Model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

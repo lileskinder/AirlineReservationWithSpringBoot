@@ -1,7 +1,6 @@
 package com.example.airline_reservation.Web;
 
 import com.example.airline_reservation.Model.Airline;
-import com.example.airline_reservation.Model.Airport;
 import com.example.airline_reservation.Service.DTOs.AirlineDTO;
 import com.example.airline_reservation.Service.Implementation.AirlineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

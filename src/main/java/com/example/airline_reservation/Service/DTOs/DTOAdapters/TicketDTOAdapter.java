@@ -4,8 +4,8 @@ import com.example.airline_reservation.DAO.FlightRepo;
 import com.example.airline_reservation.Model.Flight;
 import com.example.airline_reservation.Model.Passenger;
 import com.example.airline_reservation.Model.Ticket;
-import com.example.airline_reservation.Service.DTOs.TicketDTO;
 import com.example.airline_reservation.Service.PassengerService;
+import com.example.airline_reservation.Service.DTOs.TicketDTO;
 
 public class TicketDTOAdapter {
 

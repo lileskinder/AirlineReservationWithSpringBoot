@@ -1,16 +1,16 @@
 package com.example.airline_reservation.Service.DTOs.DTOAdapters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.airline_reservation.DAO.FlightRepo;
 import com.example.airline_reservation.DAO.PersonRepo;
 import com.example.airline_reservation.Model.Person;
 import com.example.airline_reservation.Model.Reservation;
 import com.example.airline_reservation.Model.Ticket;
+import com.example.airline_reservation.Service.PassengerService;
 import com.example.airline_reservation.Service.DTOs.ReservationDTO;
 import com.example.airline_reservation.Service.DTOs.TicketDTO;
-import com.example.airline_reservation.Service.PassengerService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ReservationDTOAdapter {
 

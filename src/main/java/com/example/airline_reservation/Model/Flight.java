@@ -3,7 +3,6 @@ package com.example.airline_reservation.Model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data

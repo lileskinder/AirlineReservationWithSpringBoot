@@ -1,31 +1,11 @@
 package com.example.airline_reservation;
 
-import com.example.airline_reservation.DAO.AirlineRepo;
-import com.example.airline_reservation.DAO.AirportRepo;
-import com.example.airline_reservation.DAO.FlightRepo;
-import com.example.airline_reservation.Model.Airline;
-import com.example.airline_reservation.Model.Airport;
-import com.example.airline_reservation.Model.Flight;
-import com.example.airline_reservation.Service.DTOs.DTOAdapters.FlightDTOAdapter;
-import com.example.airline_reservation.Service.DTOs.FlightDTO;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.equalTo;
 
 @RunWith(SpringRunner.class)
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

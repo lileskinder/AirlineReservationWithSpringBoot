@@ -3,7 +3,6 @@ package com.example.airline_reservation.Service.Implementation;
 import com.example.airline_reservation.DAO.AirportRepo;
 
 import com.example.airline_reservation.ExceptionHandling.ResourceNotFoundException;
-import com.example.airline_reservation.Model.Airline;
 import com.example.airline_reservation.Model.Airport;
 import com.example.airline_reservation.Service.AirportService;
 import com.example.airline_reservation.Service.DTOs.AirportDTO;

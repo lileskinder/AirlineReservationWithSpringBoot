@@ -2,7 +2,6 @@ package com.example.airline_reservation.Service.DTOs.DTOAdapters;
 
 import com.example.airline_reservation.Model.Passenger;
 import com.example.airline_reservation.Model.Person;
-import com.example.airline_reservation.Model.Role;
 import com.example.airline_reservation.Service.DTOs.PersonDTO;
 
 public class PersonDTOAdapter {

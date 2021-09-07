@@ -1,6 +1,5 @@
 package com.example.airline_reservation.Service.DTOs;
 
-import com.example.airline_reservation.Model.Person;
 import com.example.airline_reservation.Model.ReservationStatus;
 
 import lombok.Data;
